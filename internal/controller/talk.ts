@@ -1,5 +1,4 @@
 import type { Request, Response} from "express";
-import { parseRequest } from "../chat";
 import { ILlm } from "../ai/llm/type";
 import { AnthropicLLM, LLM_ANTHROPIC } from "../ai/llm/anthropic";
 import { CohereLLM, LLM_COHERE } from "../ai/llm/cohere";
@@ -9,20 +8,37 @@ import { LLM_OPENAI, OpenaiLLM } from "../ai/llm/openai";
 import { LLM_PERPLEXITY, PerplexityLLM } from "../ai/llm/perplexity";
 import { LangFuseTrace } from "../ai/trace/langfuse";
 import { LunaryTrace } from "../ai/trace/lunary";
+import { ITalk } from "../ai/type";
 import { Trace } from "../ai/trace/trace";
 
-export const chat = () => async (req: Request, res: Response) => {
+export const talk = () => async (req: Request, res: Response) => {
+  const chatData = await parse(req);
+
+  let langFuseTrace = undefined;
+  let lunaryTrace = undefined;
+  if (
+      (process.env.LANGFUSE_SECRET_KEY !== "" && process.env.LANGFUSE_SECRET_KEY !== undefined) &&
+      (process.env.LANGFUSE_PUBLIC_KEY !== "" && process.env.LANGFUSE_PUBLIC_KEY !== undefined) &&
+      (process.env.LANGFUSE_HOST !== "" && process.env.LANGFUSE_HOST !== undefined) &&
+      1 === 1
+  ) {
+    langFuseTrace = new LangFuseTrace(process.env.LANGFUSE_SECRET_KEY, process.env.LANGFUSE_PUBLIC_KEY, process.env.LANGFUSE_HOST);
+  }
+  if (
+    (process.env.LUNARY_PUBLIC_KEY !== "" && process.env.LUNARY_PUBLIC_KEY !== undefined) &&
+    1 === 1
+  ) {
+    lunaryTrace = new LunaryTrace(process.env.LUNARY_PUBLIC_KEY);
+  }
+
   try {
-    const chatData = await parseRequest(req);
-    const trace = new Trace(
-      new LangFuseTrace(process.env.LANGFUSE_SECRET_KEY, process.env.LANGFUSE_PUBLIC_KEY, process.env.LANGFUSE_HOST),
-      new LunaryTrace(process.env.LUNARY_PUBLIC_KEY)
-    )
-    trace.init(chatData, [`llm:${chatData.llm}`, `stream:${chatData.stream}`]);
+    const trace = new Trace();
+    trace.init(langFuseTrace, lunaryTrace);
+    trace.start(chatData, [`llm:${chatData.llm.llm}`, `stream:${chatData.llm.stream}`]);
     let llm: ILlm | undefined = undefined
 
     trace.llmStart(chatData);
-    switch (chatData.llm) {
+    switch (chatData.llm.llm) {
       case LLM_ANTHROPIC:
         llm = new AnthropicLLM(process.env.ANTHROPIC_API_KEY)
         break;
@@ -70,7 +86,7 @@ export const chat = () => async (req: Request, res: Response) => {
       }
     }
 
-    trace.end()
+    trace.finish()
     res.end();
   } catch (error) {
     res.status(500);
@@ -78,4 +94,41 @@ export const chat = () => async (req: Request, res: Response) => {
     console.error('Error processing request:', error);
     res.end();
   }
+};
+
+const parse = async (req: Request): Promise<ITalk> => {
+  return {
+    id: req.body.id,
+    llm: {
+      llm: req.body.llm.llm || undefined,
+      model: req.body.llm.model || undefined,
+      temperature: req.body.llm.temperature || undefined,
+      stream: req.body.llm.stream || false,
+    },
+    user: {
+      id: req.body.user.id,
+      name: req.body.user.name,
+      email: req.body.user.email || undefined,
+    },
+    device: {
+      name: req.body.device.name,
+    },
+    conversation: {
+      id: req.body.conversation.id,
+      type: req.body.conversation.type,
+      system: req.body.conversation.system || undefined,
+      question: req.body.conversation.question,
+      history: req.body.conversation.history || [],
+    },
+    assistant: {
+      id: req.body.assistant.id,
+      object: req.body.assistant.object,
+    },
+    snippet: {
+      id: req.body.snippet.id || undefined,
+      object: req.body.snippet.object || undefined,
+    },
+    createdAt: req.body.createdAt,
+    result: req.body.result || undefined,
+  };
 };

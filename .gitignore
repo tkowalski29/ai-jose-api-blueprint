@@ -54,7 +54,7 @@ build/Release
 
 node_modules/
 jspm_packages/
-./ngrok
+ngrok
 
 # Snowpack dependency directory (https://snowpack.dev/)
 
