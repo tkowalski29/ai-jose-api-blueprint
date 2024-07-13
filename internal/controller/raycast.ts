@@ -11,7 +11,7 @@ import { LunaryTrace } from "../ai/trace/lunary";
 import { ITalk } from "../ai/type";
 import { Trace } from "../ai/trace/trace";
 
-export const talk = () => async (req: Request, res: Response) => {
+export const raycast = () => async (req: Request, res: Response) => {
   const chatData = await parse(req);
 
   let langFuseTrace = undefined;
