@@ -8,10 +8,10 @@ import { LLM_OPENAI, OpenaiLLM } from "../ai/llm/openai";
 import { LLM_PERPLEXITY, PerplexityLLM } from "../ai/llm/perplexity";
 import { LangFuseTrace } from "../ai/trace/langfuse";
 import { LunaryTrace } from "../ai/trace/lunary";
-import { ITalk } from "../ai/type";
+import { EMessage_role, ITalk, ITalkHistory } from "../ai/type";
 import { Trace } from "../ai/trace/trace";
 
-export const raycast = () => async (req: Request, res: Response) => {
+export const mobile = () => async (req: Request, res: Response) => {
   const chatData = await parse(req);
 
   let langFuseTrace = undefined;
@@ -97,11 +97,19 @@ export const raycast = () => async (req: Request, res: Response) => {
 };
 
 const parse = async (req: Request): Promise<ITalk> => {
+  let _llm = req.body.llm.llm
+  let _model = req.body.llm.model
+  if (_llm === _model) {
+    const chars = _llm.split('__');
+    _llm = chars[0];
+    _model = chars[1];
+  }
+
   return {
     id: req.body.id,
     llm: {
-      llm: req.body.llm.llm || undefined,
-      model: req.body.llm.model || undefined,
+      llm: _llm || undefined,
+      model: _model || undefined,
       temperature: req.body.llm.temperature || undefined,
       stream: req.body.llm.stream || false,
     },
@@ -118,7 +126,7 @@ const parse = async (req: Request): Promise<ITalk> => {
       type: req.body.conversation.type,
       system: req.body.conversation.system || undefined,
       question: req.body.conversation.question,
-      history: req.body.conversation.history || [],
+      history: parseHistory(req.body.conversation.history) || [],
     },
     assistant: {
       id: req.body.assistant.id,
@@ -132,3 +140,29 @@ const parse = async (req: Request): Promise<ITalk> => {
     result: req.body.result || undefined,
   };
 };
+
+const parseHistory = (req: string): ITalkHistory[] => {
+  const parsedArray = JSON.parse(req);
+  let r: ITalkHistory[] = []
+
+  if (!Array.isArray(parsedArray)) {
+    return r
+  }
+
+  parsedArray.map(item => {
+    if (item.question.content) {
+      r.push({
+        role: EMessage_role.USER,
+        content: item.question.content,
+      })
+    }
+    if (item.answer.content) {
+      r.push({
+        role: EMessage_role.AI,
+        content: item.answer.content,
+      })
+    }
+  });
+
+  return r
+}
