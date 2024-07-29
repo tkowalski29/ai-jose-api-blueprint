@@ -4,8 +4,8 @@
   "main": "api.ts",
   "scripts": {
     "build": "npx tsc",
-    "start": "node app.js",
-    "dev": "tsx watch app.ts"
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts"
   },
   "peerDependencies": {
     "@types/express": "^4.17.21",
