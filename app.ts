@@ -12,6 +12,10 @@ dotenv.config();
 const port = process.env.PORT
 const app = initialize();
 
+app.get('/', (req, res) => {
+  res.send('Start page')
+})
+
 app.post('/api/event/location', eventLocation());
 
 app.get('/api/resource/assistant', resourceAssistant());
