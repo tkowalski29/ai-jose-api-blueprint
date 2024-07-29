@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "main": "api.ts",
   "scripts": {
-    "install": "npm install --ignore-scripts",
-    "build": "npm install --ignore-scripts && npx tsc",
+    "build": "npx tsc",
     "start": "node dist/app.js",
     "dev": "tsx watch app.ts"
   },
