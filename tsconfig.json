@@ -3,12 +3,9 @@
     "types": [ "node" ],
     "typeRoots": [ "./node_modules/@types" ],
     "lib": ["ESNext"],
-    "module": "esnext",
-    "target": "esnext",
-    "moduleResolution": "bundler",
+    "module": "commonjs",
+    "target": "ES6",
     "moduleDetection": "force",
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
     "composite": true,
     "strict": true,
     "downlevelIteration": true,
@@ -16,7 +13,10 @@
     "jsx": "preserve",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "allowJs": true
+    "allowJs": true,
+    "outDir": "./dist",
+    "rootDir": "./",
+    "esModuleInterop": true
   },
   "include": ["app.ts", "./internal/**/*"]
 }

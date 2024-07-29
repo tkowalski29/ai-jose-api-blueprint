@@ -1,12 +1,12 @@
 import dotenv from 'dotenv';
-import { initialize } from './internal/server.ts';
-import { ping } from './internal/controller/ping.ts';
-import { raycast } from './internal/controller/raycast.ts';
-import { mobile } from './internal/controller/mobile.ts';
-import { eventLocation } from './internal/controller/event/location.ts';
-import { resourceAssistant } from './internal/controller/resource/assistant.ts';
-import { resourceLlm } from './internal/controller/resource/llm.ts';
-import { resourceSnippet } from './internal/controller/resource/snippet.ts';
+import { initialize } from './internal/server';
+import { ping } from './internal/controller/ping';
+import { raycast } from './internal/controller/raycast';
+import { mobile } from './internal/controller/mobile';
+import { eventLocation } from './internal/controller/event/location';
+import { resourceAssistant } from './internal/controller/resource/assistant';
+import { resourceLlm } from './internal/controller/resource/llm';
+import { resourceSnippet } from './internal/controller/resource/snippet';
 
 dotenv.config();
 const port = process.env.PORT || 8080
