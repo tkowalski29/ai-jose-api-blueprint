@@ -1,5 +1,4 @@
 import { Ollama, Message, ChatResponse } from "ollama";
-import { AbortableAsyncIterator } from "ollama/src/utils.js";
 import { EMessage_role, ITalk, ITalkDataResult, ITalkHistory, ITalkQuestion, newTalkDataResult } from "../type";
 import { ITrace } from "../trace/type";
 import { ILlm } from "./type";
@@ -29,7 +28,7 @@ export class OllamaLLM implements ILlm {
     }
   }
 
-  async chat(chatData: ITalk): Promise<{ stream: boolean; data: AbortableAsyncIterator<ChatResponse> | ChatResponse }> {
+  async chat(chatData: ITalk): Promise<{ stream: boolean; data: any | ChatResponse }> {
     if (!this.llm) throw new Error("LLM is not initialized");
 
     try {

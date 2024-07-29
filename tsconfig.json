@@ -17,5 +17,6 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": true
-  }
+  },
+  "include": ["app.ts", "./internal/**/*"]
 }

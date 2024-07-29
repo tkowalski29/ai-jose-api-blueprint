@@ -9,7 +9,7 @@ import { resourceLlm } from './internal/controller/resource/llm.ts';
 import { resourceSnippet } from './internal/controller/resource/snippet.ts';
 
 dotenv.config();
-const port = process.env.PORT
+const port = process.env.PORT || 8080
 const app = initialize();
 
 app.get('/', (req, res) => {

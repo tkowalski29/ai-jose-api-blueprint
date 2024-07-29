@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { Message, MessageParam, RawMessageStreamEvent } from "@anthropic-ai/sdk/resources";
 import { Stream } from "@anthropic-ai/sdk/streaming";
+import { RawMessageStreamEvent, Message, MessageParam } from "@anthropic-ai/sdk/resources/messages.mjs";
 import { EMessage_role, ITalk, ITalkDataResult, ITalkHistory, ITalkQuestion, newTalkDataResult } from "../type";
 import { ITrace } from "../trace/type";
 import { ILlm } from "./type";

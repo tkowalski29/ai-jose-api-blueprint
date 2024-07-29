@@ -1,6 +1,6 @@
 import { OpenAI } from "openai";
 import { Stream } from "openai/streaming";
-import { ChatCompletion, ChatCompletionChunk, ChatCompletionMessageParam } from "openai/resources";
+import { ChatCompletionChunk, ChatCompletion, ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { ITrace } from "../trace/type";
 import { ILlm } from "./type";
 import { EMessage_role, ITalk, ITalkDataResult, ITalkHistory, ITalkQuestion, newTalkDataResult } from "../type";
