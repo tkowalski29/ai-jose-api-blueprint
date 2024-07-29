@@ -7,6 +7,7 @@ import { eventLocation } from './internal/controller/event/location';
 import { resourceAssistant } from './internal/controller/resource/assistant';
 import { resourceLlm } from './internal/controller/resource/llm';
 import { resourceSnippet } from './internal/controller/resource/snippet';
+import { testSse } from './internal/controller/test/sse';
 
 dotenv.config();
 const port = process.env.PORT || 8080
@@ -21,6 +22,8 @@ app.post('/api/event/location', eventLocation());
 app.get('/api/resource/assistant', resourceAssistant());
 app.get('/api/resource/llm', resourceLlm());
 app.get('/api/resource/snippet', resourceSnippet());
+
+app.post('/test/sse', testSse());
 
 app.post('/api/mobile', mobile());
 

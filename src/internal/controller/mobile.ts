@@ -88,13 +88,10 @@ export const mobile = () => async (req: Request, res: Response) => {
 
         res.write("data: " + JSON.stringify(r) + "\n\n");
       }
+
+      res.write("data: [DONE]\n\n");
     }
 
-    res.write("data: [DONE]\n\n");
-
-    req.on('close', () => {
-      res.end();
-    });
     trace.finish()
     res.end();
   } catch (error) {
