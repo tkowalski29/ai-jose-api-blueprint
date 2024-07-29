@@ -1,7 +1,7 @@
 {
   "name": "jose-api-blueprint",
   "version": "0.1.0",
-  "module": "api.ts",
+  "main": "api.ts",
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/app.js",
