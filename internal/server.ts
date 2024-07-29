@@ -1,8 +1,7 @@
-import express, { Express } from 'express';
+import express from 'express';
 
-export const initialize = (): Express => {
+export const initialize = (): express.Application => {
     const app = express();
-    app.use(express.json());
     
     return app;
 };

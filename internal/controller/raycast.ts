@@ -75,6 +75,7 @@ export const raycast = () => async (req: Request, res: Response) => {
     } else {
       res.setHeader('Content-Type', 'application/x-ndjson');
       res.setHeader('Transfer-Encoding', 'chunked');
+      res.flushHeaders();
 
       for await (const chunk of answer.data) {
         const r = llm.prepareResponse(chatData, answer.stream, trace, chunk)

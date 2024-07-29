@@ -1,6 +1,7 @@
 import type {Request, Response} from "express";
 
 export const ping = () => async (req: Request, res: Response) => {
-  res.send('pong');
+  res.status(200);
+  res.json({"ping": "pong"});
   res.end();
 };

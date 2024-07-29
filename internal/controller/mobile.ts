@@ -22,13 +22,13 @@ export const mobile = () => async (req: Request, res: Response) => {
       (process.env.LANGFUSE_HOST !== "" && process.env.LANGFUSE_HOST !== undefined) &&
       1 === 1
   ) {
-    langFuseTrace = new LangFuseTrace(process.env.LANGFUSE_SECRET_KEY, process.env.LANGFUSE_PUBLIC_KEY, process.env.LANGFUSE_HOST);
+    // langFuseTrace = new LangFuseTrace(process.env.LANGFUSE_SECRET_KEY, process.env.LANGFUSE_PUBLIC_KEY, process.env.LANGFUSE_HOST);
   }
   if (
     (process.env.LUNARY_PUBLIC_KEY !== "" && process.env.LUNARY_PUBLIC_KEY !== undefined) &&
     1 === 1
   ) {
-    lunaryTrace = new LunaryTrace(process.env.LUNARY_PUBLIC_KEY);
+    // lunaryTrace = new LunaryTrace(process.env.LUNARY_PUBLIC_KEY);
   }
 
   try {
@@ -73,8 +73,11 @@ export const mobile = () => async (req: Request, res: Response) => {
       const r = llm.prepareResponse(chatData, answer.stream, trace, answer.data)
       res.json(r);
     } else {
-      res.setHeader('Content-Type', 'application/x-ndjson');
-      res.setHeader('Transfer-Encoding', 'chunked');
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.flushHeaders();
 
       for await (const chunk of answer.data) {
         const r = llm.prepareResponse(chatData, answer.stream, trace, chunk)
@@ -82,10 +85,16 @@ export const mobile = () => async (req: Request, res: Response) => {
         if (res.statusCode !== 200) {
           res.status(200);
         }
-        res.write(JSON.stringify(r) + '\n');
+
+        res.write("data: " + JSON.stringify(r) + "\n\n");
       }
     }
 
+    res.write("data: [DONE]\n\n");
+
+    req.on('close', () => {
+      res.end();
+    });
     trace.finish()
     res.end();
   } catch (error) {
@@ -126,7 +135,7 @@ const parse = async (req: Request): Promise<ITalk> => {
       type: req.body.conversation.type,
       system: req.body.conversation.system || undefined,
       question: req.body.conversation.question,
-      history: parseHistory(req.body.conversation.history) || [],
+      history: parseHistory(req.body.conversation.history),
     },
     assistant: {
       id: req.body.assistant.id,
@@ -142,27 +151,36 @@ const parse = async (req: Request): Promise<ITalk> => {
 };
 
 const parseHistory = (req: string): ITalkHistory[] => {
-  const parsedArray = JSON.parse(req);
   let r: ITalkHistory[] = []
 
-  if (!Array.isArray(parsedArray)) {
+  try {
+    if (req === undefined || req === "" || req === "[]") {
+      return r
+    }
+  
+    const parsedArray = JSON.parse(req);
+    
+    if (!Array.isArray(parsedArray) || parseHistory.length === 0) {
+      return r
+    }
+  
+    parsedArray.map(item => {
+      if (item.question.content) {
+        r.push({
+          role: EMessage_role.USER,
+          content: item.question.content,
+        })
+      }
+      if (item.answer.content) {
+        r.push({
+          role: EMessage_role.AI,
+          content: item.answer.content,
+        })
+      }
+    });
+  
+    return r
+  } catch(e) {
     return r
   }
-
-  parsedArray.map(item => {
-    if (item.question.content) {
-      r.push({
-        role: EMessage_role.USER,
-        content: item.question.content,
-      })
-    }
-    if (item.answer.content) {
-      r.push({
-        role: EMessage_role.AI,
-        content: item.answer.content,
-      })
-    }
-  });
-
-  return r
 }
