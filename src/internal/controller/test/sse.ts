@@ -1,6 +1,6 @@
 import type { Request, Response} from "express";
 
-export const testSse = () => async (req: Request, res: Response) => {
+export const testSse = (name: string) => async (req: Request, res: Response) => {
   console.log("Nowe połączenie SSE");
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
@@ -20,7 +20,7 @@ export const testSse = () => async (req: Request, res: Response) => {
 
   let counter = 0;
   const exampleData = () => ({
-      content: `Mock message ${counter++}`,
+      content: `${name}-${counter++}`,
   });
 
   const intervalId = setInterval(() => {

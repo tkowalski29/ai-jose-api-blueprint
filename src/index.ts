@@ -23,9 +23,9 @@ app.get('/api/resource/assistant', resourceAssistant());
 app.get('/api/resource/llm', resourceLlm());
 app.get('/api/resource/snippet', resourceSnippet());
 
-app.post('/test/sse', testSse());
+app.post('/test/sse', testSse("mock"));
 
-app.post('/api/mobile', mobile());
+app.post('/api/mobile', testSse("mobile"));
 
 app.get('/api/ping', ping());
 
