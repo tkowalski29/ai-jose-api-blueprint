@@ -72,6 +72,9 @@ export const mobile = () => async (req: Request, res: Response) => {
     if (!answer.stream) {
       const r = llm.prepareResponse(chatData, answer.stream, trace, answer.data)
       res.write("data: " + JSON.stringify(r) + "\n\n");
+      trace.finish()
+      res.end();
+      return;
     } else {
       res.setHeader('Content-Type', 'text/event-stream');
       res.setHeader('Cache-Control', 'no-cache');
@@ -80,11 +83,13 @@ export const mobile = () => async (req: Request, res: Response) => {
       res.flushHeaders();
 
       let counter = 0;
-      setInterval(() => {
+      const intervalId = setInterval(() => {
+        console.log('aa')
         counter++;
         if (counter >= 10) {
-            res.end();
-            return;
+          trace.finish()
+          res.end();
+          return;
         }
 
         res.write("data: " + JSON.stringify({content: counter}) + "\n\n");
@@ -100,9 +105,6 @@ export const mobile = () => async (req: Request, res: Response) => {
       //   res.write("data: " + JSON.stringify(r) + "\n\n");
       // }
     }
-
-    trace.finish()
-    res.end();
   } catch (error) {
     res.status(500);
     res.setHeader('Content-Type', 'application/json');
