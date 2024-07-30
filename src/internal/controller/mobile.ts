@@ -12,70 +12,70 @@ import { EMessage_role, ITalk, ITalkHistory } from "../ai/type";
 import { Trace } from "../ai/trace/trace";
 
 export const mobile = () => async (req: Request, res: Response) => {
-  const chatData = await parse(req);
+  // const chatData = await parse(req);
 
-  let langFuseTrace = undefined;
-  let lunaryTrace = undefined;
-  if (
-      (process.env.LANGFUSE_SECRET_KEY !== "" && process.env.LANGFUSE_SECRET_KEY !== undefined) &&
-      (process.env.LANGFUSE_PUBLIC_KEY !== "" && process.env.LANGFUSE_PUBLIC_KEY !== undefined) &&
-      (process.env.LANGFUSE_HOST !== "" && process.env.LANGFUSE_HOST !== undefined) &&
-      1 === 1
-  ) {
-    // langFuseTrace = new LangFuseTrace(process.env.LANGFUSE_SECRET_KEY, process.env.LANGFUSE_PUBLIC_KEY, process.env.LANGFUSE_HOST);
-  }
-  if (
-    (process.env.LUNARY_PUBLIC_KEY !== "" && process.env.LUNARY_PUBLIC_KEY !== undefined) &&
-    1 === 1
-  ) {
-    // lunaryTrace = new LunaryTrace(process.env.LUNARY_PUBLIC_KEY);
-  }
+  // let langFuseTrace = undefined;
+  // let lunaryTrace = undefined;
+  // if (
+  //     (process.env.LANGFUSE_SECRET_KEY !== "" && process.env.LANGFUSE_SECRET_KEY !== undefined) &&
+  //     (process.env.LANGFUSE_PUBLIC_KEY !== "" && process.env.LANGFUSE_PUBLIC_KEY !== undefined) &&
+  //     (process.env.LANGFUSE_HOST !== "" && process.env.LANGFUSE_HOST !== undefined) &&
+  //     1 === 1
+  // ) {
+  //   // langFuseTrace = new LangFuseTrace(process.env.LANGFUSE_SECRET_KEY, process.env.LANGFUSE_PUBLIC_KEY, process.env.LANGFUSE_HOST);
+  // }
+  // if (
+  //   (process.env.LUNARY_PUBLIC_KEY !== "" && process.env.LUNARY_PUBLIC_KEY !== undefined) &&
+  //   1 === 1
+  // ) {
+  //   // lunaryTrace = new LunaryTrace(process.env.LUNARY_PUBLIC_KEY);
+  // }
 
-  try {
-    const trace = new Trace();
-    trace.init(langFuseTrace, lunaryTrace);
-    trace.start(chatData, [`llm:${chatData.llm.llm}`, `stream:${chatData.llm.stream}`]);
-    let llm: ILlm | undefined = undefined
+  // try {
+  //   const trace = new Trace();
+  //   trace.init(langFuseTrace, lunaryTrace);
+  //   trace.start(chatData, [`llm:${chatData.llm.llm}`, `stream:${chatData.llm.stream}`]);
+  //   let llm: ILlm | undefined = undefined
 
-    trace.llmStart(chatData);
-    switch (chatData.llm.llm) {
-      case LLM_ANTHROPIC:
-        llm = new AnthropicLLM(process.env.ANTHROPIC_API_KEY)
-        break;
-      case LLM_COHERE:
-        llm = new CohereLLM(process.env.COHERE_API_KEY)
-        break;
-      case LLM_GROQ:
-        llm = new GroqLLM(process.env.GROQ_API_KEY)
-        break;
-      case LLM_OLLAMA:
-        llm = new OllamaLLM(process.env.OLLAMA_API_URL)
-        break;
-      case LLM_OPENAI:
-        llm = new OpenaiLLM(process.env.OPENAI_API_KEY)
-        break;
-      case LLM_PERPLEXITY:
-        llm = new PerplexityLLM(process.env.PERPLEXITY_API_KEY)
-        break;
-    }
+  //   trace.llmStart(chatData);
+  //   switch (chatData.llm.llm) {
+  //     case LLM_ANTHROPIC:
+  //       llm = new AnthropicLLM(process.env.ANTHROPIC_API_KEY)
+  //       break;
+  //     case LLM_COHERE:
+  //       llm = new CohereLLM(process.env.COHERE_API_KEY)
+  //       break;
+  //     case LLM_GROQ:
+  //       llm = new GroqLLM(process.env.GROQ_API_KEY)
+  //       break;
+  //     case LLM_OLLAMA:
+  //       llm = new OllamaLLM(process.env.OLLAMA_API_URL)
+  //       break;
+  //     case LLM_OPENAI:
+  //       llm = new OpenaiLLM(process.env.OPENAI_API_KEY)
+  //       break;
+  //     case LLM_PERPLEXITY:
+  //       llm = new PerplexityLLM(process.env.PERPLEXITY_API_KEY)
+  //       break;
+  //   }
 
-    if (llm === undefined) {
-      res.status(500);
-      res.setHeader('Content-Type', 'application/json');
-      console.error('Error processing request:', 'Unknown llm');
-      res.end();
-      return
-    }
+  //   if (llm === undefined) {
+  //     res.status(500);
+  //     res.setHeader('Content-Type', 'application/json');
+  //     console.error('Error processing request:', 'Unknown llm');
+  //     res.end();
+  //     return
+  //   }
 
-    const answer = await llm.chat(chatData);
+  //   const answer = await llm.chat(chatData);
 
-    if (!answer.stream) {
-      const r = llm.prepareResponse(chatData, answer.stream, trace, answer.data)
-      res.write("data: " + JSON.stringify(r) + "\n\n");
-      trace.finish()
-      res.end();
-      return;
-    } else {
+    // if (!answer.stream) {
+    //   const r = llm.prepareResponse(chatData, answer.stream, trace, answer.data)
+    //   res.write("data: " + JSON.stringify(r) + "\n\n");
+    //   trace.finish()
+    //   res.end();
+    //   return;
+    // } else {
       res.setHeader('Content-Type', 'text/event-stream');
       res.setHeader('Cache-Control', 'no-cache');
       res.setHeader('Connection', 'keep-alive');
@@ -94,7 +94,7 @@ export const mobile = () => async (req: Request, res: Response) => {
   
     let counter = 0;
     const exampleData = () => ({
-        content: `Mock message ${counter++}`,
+        content: `Content ${counter++}`,
     });
   
     const intervalId = setInterval(() => {
@@ -124,13 +124,13 @@ export const mobile = () => async (req: Request, res: Response) => {
       //     return;
       //   }
       // }
-    }
-  } catch (error) {
-    res.status(500);
-    res.setHeader('Content-Type', 'application/json');
-    console.error('Error processing request:', error);
-    res.end();
-  }
+    // }
+  // } catch (error) {
+  //   res.status(500);
+  //   res.setHeader('Content-Type', 'application/json');
+  //   console.error('Error processing request:', error);
+  //   res.end();
+  // }
 };
 
 const parse = async (req: Request): Promise<ITalk> => {
