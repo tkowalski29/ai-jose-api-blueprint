@@ -13,6 +13,7 @@ import { Trace } from "../ai/trace/trace";
 
 export const mobile = () => async (req: Request, res: Response) => {
   const chatData = await parse(req);
+  console.log("INPUT data: " + JSON.stringify(chatData))
 
   let langFuseTrace = undefined;
   let lunaryTrace = undefined;
@@ -71,6 +72,8 @@ export const mobile = () => async (req: Request, res: Response) => {
 
     if (!answer.stream) {
       const r = llm.prepareResponse(chatData, answer.stream, trace, answer.data)
+      console.log("SEND data: " + JSON.stringify(r))
+
       res.write("data: " + JSON.stringify(r) + "\n\n");
       trace.finish()
       res.end();
@@ -88,6 +91,7 @@ export const mobile = () => async (req: Request, res: Response) => {
         if (res.statusCode !== 200) {
           res.status(200);
         }
+        console.log("STREAM data: " + JSON.stringify(r))
 
         res.write("data: " + JSON.stringify(r) + "\n\n");
 
