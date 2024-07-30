@@ -25,7 +25,7 @@ app.get('/api/resource/snippet', resourceSnippet());
 
 app.post('/test/sse', testSse("mock"));
 
-app.post('/api/mobile', testSse("mobile"));
+app.post('/api/mobile', mobile());
 
 app.get('/api/ping', ping());
 
