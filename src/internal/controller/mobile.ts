@@ -82,18 +82,32 @@ export const mobile = () => async (req: Request, res: Response) => {
       res.setHeader('Access-Control-Allow-Origin', '*');
       res.flushHeaders();
 
-      let counter = 0;
-      const intervalId = setInterval(() => {
-        console.log('aa')
-        counter++;
-        if (counter >= 10) {
-          trace.finish()
-          res.end();
-          return;
+      const sendEvent = (data: any) => {
+        try {
+            res.write(`data: ${JSON.stringify(data)}\n\n`);
+        } catch (err) {
+            console.error('Error send data:', err);
+            clearInterval(intervalId);
+            res.end();
         }
-
-        res.write("data: " + JSON.stringify({content: counter}) + "\n\n");
-      }, 250);
+    };
+  
+    let counter = 0;
+    const exampleData = () => ({
+        content: `Mock message ${counter++}`,
+    });
+  
+    const intervalId = setInterval(() => {
+        if (counter >= 10) {
+            clearInterval(intervalId);
+            console.log('Stop 10 message');
+            res.end();
+            return;
+        }
+        const data = exampleData();
+        console.log('Send data:', data);
+        sendEvent(data);
+    }, 500);
 
       // for await (const chunk of answer.data) {
       //   const r = llm.prepareResponse(chatData, answer.stream, trace, chunk)
@@ -103,6 +117,12 @@ export const mobile = () => async (req: Request, res: Response) => {
       //   }
 
       //   res.write("data: " + JSON.stringify(r) + "\n\n");
+
+      //   if (r.finish === true) {
+      //     trace.finish()
+      //     res.end();
+      //     return;
+      //   }
       // }
     }
   } catch (error) {
