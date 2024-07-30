@@ -79,15 +79,26 @@ export const mobile = () => async (req: Request, res: Response) => {
       res.setHeader('Access-Control-Allow-Origin', '*');
       res.flushHeaders();
 
-      for await (const chunk of answer.data) {
-        const r = llm.prepareResponse(chatData, answer.stream, trace, chunk)
-
-        if (res.statusCode !== 200) {
-          res.status(200);
+      let counter = 0;
+      setInterval(() => {
+        counter++;
+        if (counter >= 10) {
+            res.end();
+            return;
         }
 
-        res.write("data: " + JSON.stringify(r) + "\n\n");
-      }
+        res.write("data: " + JSON.stringify({content: counter}) + "\n\n");
+      }, 250);
+
+      // for await (const chunk of answer.data) {
+      //   const r = llm.prepareResponse(chatData, answer.stream, trace, chunk)
+
+      //   if (res.statusCode !== 200) {
+      //     res.status(200);
+      //   }
+
+      //   res.write("data: " + JSON.stringify(r) + "\n\n");
+      // }
     }
 
     trace.finish()
