@@ -1,17 +1,63 @@
 import type { Request, Response} from "express";
-import { ILlm } from "../ai/llm/type";
-import { AnthropicLLM, LLM_ANTHROPIC } from "../ai/llm/anthropic";
-import { CohereLLM, LLM_COHERE } from "../ai/llm/cohere";
-import { GroqLLM, LLM_GROQ } from "../ai/llm/groq";
-import { LLM_OLLAMA, OllamaLLM } from "../ai/llm/ollama";
-import { LLM_OPENAI, OpenaiLLM } from "../ai/llm/openai";
-import { LLM_PERPLEXITY, PerplexityLLM } from "../ai/llm/perplexity";
-import { LangFuseTrace } from "../ai/trace/langfuse";
-import { LunaryTrace } from "../ai/trace/lunary";
-import { EMessage_role, ITalk, ITalkHistory } from "../ai/type";
-import { Trace } from "../ai/trace/trace";
+// import { ILlm } from "../ai/llm/type";
+// import { AnthropicLLM, LLM_ANTHROPIC } from "../ai/llm/anthropic";
+// import { CohereLLM, LLM_COHERE } from "../ai/llm/cohere";
+// import { GroqLLM, LLM_GROQ } from "../ai/llm/groq";
+// import { LLM_OLLAMA, OllamaLLM } from "../ai/llm/ollama";
+// import { LLM_OPENAI, OpenaiLLM } from "../ai/llm/openai";
+// import { LLM_PERPLEXITY, PerplexityLLM } from "../ai/llm/perplexity";
+// import { LangFuseTrace } from "../ai/trace/langfuse";
+// import { LunaryTrace } from "../ai/trace/lunary";
+// import { EMessage_role, ITalk, ITalkHistory } from "../ai/type";
+// import { Trace } from "../ai/trace/trace";
 
 export const mobile = () => async (req: Request, res: Response) => {
+  console.log("Nowe połączenie SSE");
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.flushHeaders();
+
+  const sendEvent = (data: any) => {
+      try {
+          res.write(`data: ${JSON.stringify(data)}\n\n`);
+      } catch (err) {
+          console.error('Error send data:', err);
+          clearInterval(intervalId);
+          res.end();
+      }
+  };
+
+  let counter = 0;
+  const exampleData = () => ({
+      content: `mobile ${counter++}`,
+  });
+
+  const intervalId = setInterval(() => {
+      if (counter >= 10) {
+          clearInterval(intervalId);
+          console.log('Stop 10 message');
+          res.end();
+          return;
+      }
+      const data = exampleData();
+      console.log('Send data:', data);
+      sendEvent(data);
+  }, 500);
+
+//   req.on('close', () => {
+//       clearInterval(intervalId);
+//       console.log('Close connection');
+//       res.end();
+//   });
+
+  req.on('error', (err) => {
+      clearInterval(intervalId);
+      console.error('Error connection:', err);
+      res.end();
+  });
+  
   // const chatData = await parse(req);
 
   // let langFuseTrace = undefined;
@@ -76,38 +122,38 @@ export const mobile = () => async (req: Request, res: Response) => {
     //   res.end();
     //   return;
     // } else {
-      res.setHeader('Content-Type', 'text/event-stream');
-      res.setHeader('Cache-Control', 'no-cache');
-      res.setHeader('Connection', 'keep-alive');
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.flushHeaders();
+    //   res.setHeader('Content-Type', 'text/event-stream');
+    //   res.setHeader('Cache-Control', 'no-cache');
+    //   res.setHeader('Connection', 'keep-alive');
+    //   res.setHeader('Access-Control-Allow-Origin', '*');
+    //   res.flushHeaders();
 
-      const sendEvent = (data: any) => {
-        try {
-            res.write(`data: ${JSON.stringify(data)}\n\n`);
-        } catch (err) {
-            console.error('Error send data:', err);
-            clearInterval(intervalId);
-            res.end();
-        }
-    };
+    //   const sendEvent = (data: any) => {
+    //     try {
+    //         res.write(`data: ${JSON.stringify(data)}\n\n`);
+    //     } catch (err) {
+    //         console.error('Error send data:', err);
+    //         clearInterval(intervalId);
+    //         res.end();
+    //     }
+    // };
   
-    let counter = 0;
-    const exampleData = () => ({
-        content: `Content ${counter++}`,
-    });
+    // let counter = 0;
+    // const exampleData = () => ({
+    //     content: `Content ${counter++}`,
+    // });
   
-    const intervalId = setInterval(() => {
-        if (counter >= 10) {
-            clearInterval(intervalId);
-            console.log('Stop 10 message');
-            res.end();
-            return;
-        }
-        const data = exampleData();
-        console.log('Send data:', data);
-        sendEvent(data);
-    }, 500);
+    // const intervalId = setInterval(() => {
+    //     if (counter >= 10) {
+    //         clearInterval(intervalId);
+    //         console.log('Stop 10 message');
+    //         res.end();
+    //         return;
+    //     }
+    //     const data = exampleData();
+    //     console.log('Send data:', data);
+    //     sendEvent(data);
+    // }, 500);
 
       // for await (const chunk of answer.data) {
       //   const r = llm.prepareResponse(chatData, answer.stream, trace, chunk)
@@ -133,82 +179,82 @@ export const mobile = () => async (req: Request, res: Response) => {
   // }
 };
 
-const parse = async (req: Request): Promise<ITalk> => {
-  let _llm = req.body.llm.llm
-  let _model = req.body.llm.model
-  if (_llm === _model) {
-    const chars = _llm.split('__');
-    _llm = chars[0];
-    _model = chars[1];
-  }
+// const parse = async (req: Request): Promise<ITalk> => {
+//   let _llm = req.body.llm.llm
+//   let _model = req.body.llm.model
+//   if (_llm === _model) {
+//     const chars = _llm.split('__');
+//     _llm = chars[0];
+//     _model = chars[1];
+//   }
 
-  return {
-    id: req.body.id,
-    llm: {
-      llm: _llm || undefined,
-      model: _model || undefined,
-      temperature: req.body.llm.temperature || undefined,
-      stream: req.body.llm.stream || false,
-    },
-    user: {
-      id: req.body.user.id,
-      name: req.body.user.name,
-      email: req.body.user.email || undefined,
-    },
-    device: {
-      name: req.body.device.name,
-    },
-    conversation: {
-      id: req.body.conversation.id,
-      type: req.body.conversation.type,
-      system: req.body.conversation.system || undefined,
-      question: req.body.conversation.question,
-      history: parseHistory(req.body.conversation.history),
-    },
-    assistant: {
-      id: req.body.assistant.id,
-      object: req.body.assistant.object,
-    },
-    snippet: {
-      id: req.body.snippet.id || undefined,
-      object: req.body.snippet.object || undefined,
-    },
-    createdAt: req.body.createdAt,
-    result: req.body.result || undefined,
-  };
-};
+//   return {
+//     id: req.body.id,
+//     llm: {
+//       llm: _llm || undefined,
+//       model: _model || undefined,
+//       temperature: req.body.llm.temperature || undefined,
+//       stream: req.body.llm.stream || false,
+//     },
+//     user: {
+//       id: req.body.user.id,
+//       name: req.body.user.name,
+//       email: req.body.user.email || undefined,
+//     },
+//     device: {
+//       name: req.body.device.name,
+//     },
+//     conversation: {
+//       id: req.body.conversation.id,
+//       type: req.body.conversation.type,
+//       system: req.body.conversation.system || undefined,
+//       question: req.body.conversation.question,
+//       history: parseHistory(req.body.conversation.history),
+//     },
+//     assistant: {
+//       id: req.body.assistant.id,
+//       object: req.body.assistant.object,
+//     },
+//     snippet: {
+//       id: req.body.snippet.id || undefined,
+//       object: req.body.snippet.object || undefined,
+//     },
+//     createdAt: req.body.createdAt,
+//     result: req.body.result || undefined,
+//   };
+// };
 
-const parseHistory = (req: string): ITalkHistory[] => {
-  let r: ITalkHistory[] = []
+// const parseHistory = (req: string): ITalkHistory[] => {
+//   let r: ITalkHistory[] = []
 
-  try {
-    if (req === undefined || req === "" || req === "[]") {
-      return r
-    }
+//   try {
+//     if (req === undefined || req === "" || req === "[]") {
+//       return r
+//     }
   
-    const parsedArray = JSON.parse(req);
+//     const parsedArray = JSON.parse(req);
     
-    if (!Array.isArray(parsedArray) || parseHistory.length === 0) {
-      return r
-    }
+//     if (!Array.isArray(parsedArray) || parseHistory.length === 0) {
+//       return r
+//     }
   
-    parsedArray.map(item => {
-      if (item.question.content) {
-        r.push({
-          role: EMessage_role.USER,
-          content: item.question.content,
-        })
-      }
-      if (item.answer.content) {
-        r.push({
-          role: EMessage_role.AI,
-          content: item.answer.content,
-        })
-      }
-    });
+//     parsedArray.map(item => {
+//       if (item.question.content) {
+//         r.push({
+//           role: EMessage_role.USER,
+//           content: item.question.content,
+//         })
+//       }
+//       if (item.answer.content) {
+//         r.push({
+//           role: EMessage_role.AI,
+//           content: item.answer.content,
+//         })
+//       }
+//     });
   
-    return r
-  } catch(e) {
-    return r
-  }
-}
+//     return r
+//   } catch(e) {
+//     return r
+//   }
+// }
