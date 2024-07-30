@@ -71,7 +71,7 @@ export const mobile = () => async (req: Request, res: Response) => {
 
     if (!answer.stream) {
       const r = llm.prepareResponse(chatData, answer.stream, trace, answer.data)
-      res.json(r);
+      res.write("data: " + JSON.stringify(r) + "\n\n");
     } else {
       res.setHeader('Content-Type', 'text/event-stream');
       res.setHeader('Cache-Control', 'no-cache');
