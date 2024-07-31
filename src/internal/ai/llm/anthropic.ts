@@ -14,7 +14,7 @@ export class AnthropicLLM implements ILlm {
 
   constructor(key: string | undefined) {
     if (!key) {
-      throw new Error("KEY is not defined");
+      throw new Error("Anthropic setting `API Key` is not defined");
     }
 
     this.key = key;
@@ -28,7 +28,7 @@ export class AnthropicLLM implements ILlm {
   }
 
   async chat(chatData: ITalk): Promise<{ stream: boolean; data: Stream<RawMessageStreamEvent> | Message }> {
-    if (!this.llm) throw new Error("LLM is not initialized");
+    if (!this.llm) throw new Error("Anthropic LLM is not initialized");
 
     try {
       const answer = await this.llm.messages.create({
