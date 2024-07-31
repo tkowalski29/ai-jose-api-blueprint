@@ -1,17 +1,17 @@
 import type { Request, Response} from "express";
-import { ILlm } from "../ai/llm/type";
-import { AnthropicLLM, LLM_ANTHROPIC } from "../ai/llm/anthropic";
-import { CohereLLM, LLM_COHERE } from "../ai/llm/cohere";
-import { GroqLLM, LLM_GROQ } from "../ai/llm/groq";
-import { LLM_OLLAMA, OllamaLLM } from "../ai/llm/ollama";
-import { LLM_OPENAI, OpenaiLLM } from "../ai/llm/openai";
-import { LLM_PERPLEXITY, PerplexityLLM } from "../ai/llm/perplexity";
-import { LangFuseTrace } from "../ai/trace/langfuse";
-import { LunaryTrace } from "../ai/trace/lunary";
-import { ITalk } from "../ai/type";
-import { Trace } from "../ai/trace/trace";
+import { ILlm } from "../../ai/llm/type";
+import { AnthropicLLM, LLM_ANTHROPIC } from "../../ai/llm/anthropic";
+import { CohereLLM, LLM_COHERE } from "../../ai/llm/cohere";
+import { GroqLLM, LLM_GROQ } from "../../ai/llm/groq";
+import { LLM_OLLAMA, OllamaLLM } from "../../ai/llm/ollama";
+import { LLM_OPENAI, OpenaiLLM } from "../../ai/llm/openai";
+import { LLM_PERPLEXITY, PerplexityLLM } from "../../ai/llm/perplexity";
+import { LangFuseTrace } from "../../ai/trace/langfuse";
+import { LunaryTrace } from "../../ai/trace/lunary";
+import { ITalk } from "../../ai/type";
+import { Trace } from "../../ai/trace/trace";
 
-export const raycast = () => async (req: Request, res: Response) => {
+export const raycastJose = () => async (req: Request, res: Response) => {
   const chatData = await parse(req);
 
   let langFuseTrace = undefined;
