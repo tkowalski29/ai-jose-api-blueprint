@@ -147,3 +147,16 @@ export interface ITalkSnippet {
   webhookUrl: string | undefined;
   isLocal: boolean;
 }
+
+export interface ITalkLlm {
+  key: string;
+  title: string;
+  company: string;
+  model: string;
+  trainingDataTo: string | undefined;
+  tokens: {
+    contextWindow: number | undefined;
+    maxOutput: number | undefined;
+  }
+  isLocal: boolean;
+}
