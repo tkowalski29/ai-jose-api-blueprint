@@ -13,7 +13,7 @@ export const LLM_BINARY = "binary";
 export class BinaryLLM implements ILlm {
 
   async chat(chatData: ITalk): Promise<{ stream: boolean; data: ITalkDataResult }> {
-    const filePath = path.join(__dirname, chatData.llm.model);
+    let filePath = path.join(__dirname, chatData.llm.model);
     if (chatData.conversation.question.files !== undefined) {
       chatData.conversation.question.files
       .filter((f: ITalkQuestionFile) => Object.keys(f).length > 0)
@@ -25,6 +25,7 @@ export class BinaryLLM implements ILlm {
     if (chatData.llm.model.includes("||")) {
       const chars = chatData.llm.model.split("||");
       chatData.llm.model = chars[1]
+      filePath = path.join(__dirname, chars[0]);
     }
 
     try {
