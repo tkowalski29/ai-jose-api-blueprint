@@ -1,9 +1,17 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { execFile } from 'child_process';
+import * as fs from "fs";
+import * as path from "path";
+import { execFile } from "child_process";
 import { ITrace } from "../trace/type";
 import { ILlm } from "./type";
-import { EMessage_role, ITalk, ITalkDataResult, ITalkHistory, ITalkQuestion, ITalkQuestionFile, newTalkDataResult } from "../type";
+import {
+  EMessage_role,
+  ITalk,
+  ITalkDataResult,
+  ITalkHistory,
+  ITalkQuestion,
+  ITalkQuestionFile,
+  newTalkDataResult,
+} from "../type";
 import fetch from "node-fetch";
 // @ts-expect-error ignore
 globalThis.fetch = fetch;
@@ -11,25 +19,24 @@ globalThis.fetch = fetch;
 export const LLM_BINARY = "binary";
 
 export class BinaryLLM implements ILlm {
-
   async chat(chatData: ITalk): Promise<{ stream: boolean; data: ITalkDataResult }> {
-    let filePath = path.join(__dirname, chatData.llm.model);
+    let filePath = path.join(__dirname, chatData.llm.model ?? "");
     if (chatData.conversation.question.files !== undefined) {
       chatData.conversation.question.files
-      .filter((f: ITalkQuestionFile) => Object.keys(f).length > 0)
-      .forEach((f: ITalkQuestionFile) => {
-        f.type = "image";
-        f.base64 = fs.readFileSync(f.path, { encoding: "base64" });
-      });
+        .filter((f: ITalkQuestionFile) => Object.keys(f).length > 0)
+        .forEach((f: ITalkQuestionFile) => {
+          f.type = "image";
+          f.base64 = fs.readFileSync(f.path, { encoding: "base64" });
+        });
     }
-    if (chatData.llm.model.includes("||")) {
-      const chars = chatData.llm.model.split("||");
-      chatData.llm.model = chars[1]
+    if ((chatData.llm.model ?? "").includes("||")) {
+      const chars = (chatData.llm.model ?? "").split("||");
+      chatData.llm.model = chars[1];
       filePath = path.join(__dirname, chars[0]);
     }
 
     try {
-      await this.#downloadFileFromVercelBlob(chatData.llm.url, chatData.llm.model, filePath);
+      await this.#downloadFileFromVercelBlob(chatData.llm.url ?? "", chatData.llm.model ?? "", filePath);
       await this.#setExecutablePermissions(filePath);
 
       const b64 = Buffer.from(JSON.stringify(chatData)).toString("base64");
@@ -50,11 +57,11 @@ export class BinaryLLM implements ILlm {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   prepareResponse(chatData: ITalk, stream: boolean, trace: ITrace, answer: any): ITalkDataResult {
-    let a: ITalkDataResult = answer
+    const a: ITalkDataResult = answer;
     let response: ITalkDataResult = newTalkDataResult();
 
     if (!stream) {
-      response = a
+      response = a;
 
       trace.changeHelper({
         output: a.content,
@@ -64,7 +71,7 @@ export class BinaryLLM implements ILlm {
         },
       });
     } else {
-      response = a
+      response = a;
 
       trace.changeHelper({
         output: a.content,
@@ -82,7 +89,9 @@ export class BinaryLLM implements ILlm {
     systemMessage: string | undefined,
     msgs: ITalkHistory[],
     lastMessage: ITalkQuestion | undefined
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): any[] {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result: any[] = [];
 
     if (systemMessage) {
@@ -132,23 +141,23 @@ export class BinaryLLM implements ILlm {
     if (fs.existsSync(outputLocationPath)) {
       return;
     }
-  
+
     const response = await fetch(fileUrl);
     if (!response.ok) {
       throw new Error(`Failed to download file from ${fileUrl}`);
     }
-    
+
     const fileStream = fs.createWriteStream(outputLocationPath);
     await new Promise((resolve, reject) => {
       response.body.pipe(fileStream);
-      response.body.on('error', reject);
-      fileStream.on('finish', resolve);
+      response.body.on("error", reject);
+      fileStream.on("finish", resolve);
     });
   }
 
   #setExecutablePermissions(filePath: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      fs.chmod(filePath, '755', (err) => {
+      fs.chmod(filePath, "755", (err) => {
         if (err) {
           reject(`Error setting executable permissions: ${err.message}`);
         } else {
@@ -175,7 +184,7 @@ export class BinaryLLM implements ILlm {
       });
     });
   }
-  
+
   #removeLocalFile(filePath: string): void {
     fs.unlink(filePath, (err) => {
       if (err) {

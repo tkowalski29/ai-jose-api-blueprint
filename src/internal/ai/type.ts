@@ -159,6 +159,6 @@ export interface ITalkLlm {
   tokens: {
     contextWindow: number | undefined;
     maxOutput: number | undefined;
-  }
+  };
   isLocal: boolean;
 }
