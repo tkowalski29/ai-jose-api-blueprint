@@ -10,6 +10,7 @@ import { LangFuseTrace } from "../../ai/trace/langfuse";
 import { LunaryTrace } from "../../ai/trace/lunary";
 import { ITalk } from "../../ai/type";
 import { Trace } from "../../ai/trace/trace";
+import { LLM_BINARY, BinaryLLM } from "../../ai/llm/binary";
 
 export const raycastJose = () => async (req: Request, res: Response) => {
   const chatData = await parse(req);
@@ -41,6 +42,11 @@ export const raycastJose = () => async (req: Request, res: Response) => {
     switch (chatData.llm.llm) {
       case LLM_ANTHROPIC:
         llm = new AnthropicLLM(process.env.ANTHROPIC_API_KEY)
+        break;
+      case LLM_BINARY:
+        chatData.llm.stream = false
+
+        llm = new BinaryLLM()
         break;
       case LLM_COHERE:
         llm = new CohereLLM(process.env.COHERE_API_KEY)
@@ -103,6 +109,7 @@ const parse = async (req: Request): Promise<ITalk> => {
     llm: {
       llm: req.body.llm.llm || undefined,
       model: req.body.llm.model || undefined,
+      url: req.body.llm.url || undefined,
       temperature: req.body.llm.temperature || undefined,
       stream: req.body.llm.stream || false,
     },

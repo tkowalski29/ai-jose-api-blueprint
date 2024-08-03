@@ -20,6 +20,7 @@ const dataAnthropic: ITalkLlm[] = [
     title: "claude-3-5-sonnet-20240620",
     company: "anthropic",
     model: "claude-3-5-sonnet-20240620",
+    url: undefined,
     trainingDataTo: "04.2024",
     tokens: {
       contextWindow: 200000,
@@ -32,6 +33,7 @@ const dataAnthropic: ITalkLlm[] = [
     title: "claude-3-opus-20240229",
     company: "anthropic",
     model: "claude-3-opus-20240229",
+    url: undefined,
     trainingDataTo: "08.2023",
     tokens: {
       contextWindow: 200000,
@@ -44,6 +46,7 @@ const dataAnthropic: ITalkLlm[] = [
     title: "claude-3-sonnet-20240229",
     company: "anthropic",
     model: "claude-3-sonnet-20240229",
+    url: undefined,
     trainingDataTo: "08.2023",
     tokens: {
       contextWindow: 200000,
@@ -56,6 +59,7 @@ const dataAnthropic: ITalkLlm[] = [
     title: "claude-3-haiku-20240307",
     company: "anthropic",
     model: "claude-3-haiku-20240307",
+    url: undefined,
     trainingDataTo: "08.2023",
     tokens: {
       contextWindow: 200000,
@@ -70,6 +74,7 @@ const dataCohere: ITalkLlm[] = [
     title: "command-r-plus",
     company: "cohere",
     model: "command-r-plus",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 128000,
@@ -82,6 +87,7 @@ const dataCohere: ITalkLlm[] = [
     title: "command-r",
     company: "cohere",
     model: "command-r",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 128000,
@@ -94,6 +100,7 @@ const dataCohere: ITalkLlm[] = [
     title: "command",
     company: "cohere",
     model: "command",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 4096,
@@ -106,6 +113,7 @@ const dataCohere: ITalkLlm[] = [
     title: "command-nightly",
     company: "cohere",
     model: "command-nightly",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 128000,
@@ -118,6 +126,7 @@ const dataCohere: ITalkLlm[] = [
     title: "command-light",
     company: "cohere",
     model: "command-light",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 4096,
@@ -130,6 +139,7 @@ const dataCohere: ITalkLlm[] = [
     title: "command-light-nightly",
     company: "cohere",
     model: "command-light-nightly",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 4096,
@@ -144,6 +154,7 @@ const dataGroq: ITalkLlm[] = [
     title: "llama-3.1-405b-reasoning",
     company: "groq",
     model: "llama-3.1-405b-reasoning",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 131072,
@@ -156,6 +167,7 @@ const dataGroq: ITalkLlm[] = [
     title: "llama-3.1-70b-versatile",
     company: "groq",
     model: "llama-3.1-70b-versatile",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 131072,
@@ -168,6 +180,7 @@ const dataGroq: ITalkLlm[] = [
     title: "llama-3.1-8b-instant",
     company: "groq",
     model: "llama-3.1-8b-instant",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 131072,
@@ -180,6 +193,7 @@ const dataGroq: ITalkLlm[] = [
     title: "llama3-groq-70b-8192-tool-use-preview",
     company: "groq",
     model: "llama3-groq-70b-8192-tool-use-preview",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 8192,
@@ -192,6 +206,7 @@ const dataGroq: ITalkLlm[] = [
     title: "llama3-groq-8b-8192-tool-use-preview",
     company: "groq",
     model: "llama3-groq-8b-8192-tool-use-preview",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 8192,
@@ -204,6 +219,7 @@ const dataGroq: ITalkLlm[] = [
     title: "llama3-70b-8192",
     company: "groq",
     model: "llama3-70b-8192",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 8192,
@@ -216,6 +232,7 @@ const dataGroq: ITalkLlm[] = [
     title: "llama3-8b-8192",
     company: "groq",
     model: "llama3-8b-8192",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 8192,
@@ -228,6 +245,7 @@ const dataGroq: ITalkLlm[] = [
     title: "mixtral-8x7b-32768",
     company: "groq",
     model: "mixtral-8x7b-32768",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 32768,
@@ -240,6 +258,7 @@ const dataGroq: ITalkLlm[] = [
     title: "gemma-7b-it",
     company: "groq",
     model: "gemma-7b-it",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 8192,
@@ -252,6 +271,7 @@ const dataGroq: ITalkLlm[] = [
     title: "gemma2-9b-it",
     company: "groq",
     model: "gemma2-9b-it",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 8192,
@@ -266,6 +286,7 @@ const dataOllama: ITalkLlm[] = [
     title: "llama3.1",
     company: "ollama",
     model: "llama3.1",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: undefined,
@@ -278,6 +299,7 @@ const dataOllama: ITalkLlm[] = [
     title: "llama3",
     company: "ollama",
     model: "llama3",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: undefined,
@@ -290,6 +312,7 @@ const dataOllama: ITalkLlm[] = [
     title: "llama2",
     company: "ollama",
     model: "llama2",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: undefined,
@@ -304,6 +327,7 @@ const dataOpenai: ITalkLlm[] = [
     title: "gpt-4o-mini",
     company: "openai",
     model: "gpt-4o-mini",
+    url: undefined,
     trainingDataTo: "10.2023",
     tokens: {
       contextWindow: 128000,
@@ -316,6 +340,7 @@ const dataOpenai: ITalkLlm[] = [
     title: "gpt-4o-mini-2024-07-18",
     company: "openai",
     model: "gpt-4o-mini-2024-07-18",
+    url: undefined,
     trainingDataTo: "10.2023",
     tokens: {
       contextWindow: 128000,
@@ -328,6 +353,7 @@ const dataOpenai: ITalkLlm[] = [
     title: "gpt-4o-2024-05-13",
     company: "openai",
     model: "gpt-4o-2024-05-13",
+    url: undefined,
     trainingDataTo: "10.2023",
     tokens: {
       contextWindow: 128000,
@@ -340,6 +366,7 @@ const dataOpenai: ITalkLlm[] = [
     title: "gpt-4o",
     company: "openai",
     model: "gpt-4o",
+    url: undefined,
     trainingDataTo: "10.2023",
     tokens: {
       contextWindow: 128000,
@@ -352,6 +379,7 @@ const dataOpenai: ITalkLlm[] = [
     title: "gpt-4-turbo-2024-04-09",
     company: "openai",
     model: "gpt-4-turbo-2024-04-09",
+    url: undefined,
     trainingDataTo: "12.2023",
     tokens: {
       contextWindow: 128000,
@@ -364,6 +392,7 @@ const dataOpenai: ITalkLlm[] = [
     title: "gpt-4-turbo",
     company: "openai",
     model: "gpt-4-turbo",
+    url: undefined,
     trainingDataTo: "12.2023",
     tokens: {
       contextWindow: 128000,
@@ -376,6 +405,7 @@ const dataOpenai: ITalkLlm[] = [
     title: "gpt-4-turbo-preview",
     company: "openai",
     model: "gpt-4-turbo-preview",
+    url: undefined,
     trainingDataTo: "12.2023",
     tokens: {
       contextWindow: 128000,
@@ -388,6 +418,7 @@ const dataOpenai: ITalkLlm[] = [
     title: "gpt-4-1106-preview",
     company: "openai",
     model: "gpt-4-1106-preview",
+    url: undefined,
     trainingDataTo: "04.2023",
     tokens: {
       contextWindow: 128000,
@@ -400,6 +431,7 @@ const dataOpenai: ITalkLlm[] = [
     title: "gpt-4",
     company: "openai",
     model: "gpt-4",
+    url: undefined,
     trainingDataTo: "09.2021",
     tokens: {
       contextWindow: 8192,
@@ -412,6 +444,7 @@ const dataOpenai: ITalkLlm[] = [
     title: "gpt-4-0613",
     company: "openai",
     model: "gpt-4-0613",
+    url: undefined,
     trainingDataTo: "09.2021",
     tokens: {
       contextWindow: 8192,
@@ -424,6 +457,7 @@ const dataOpenai: ITalkLlm[] = [
     title: "gpt-3.5-turbo-0125",
     company: "openai",
     model: "gpt-3.5-turbo-0125",
+    url: undefined,
     trainingDataTo: "09.2021",
     tokens: {
       contextWindow: 16385,
@@ -436,6 +470,7 @@ const dataOpenai: ITalkLlm[] = [
     title: "gpt-3.5-turbo-1106",
     company: "openai",
     model: "gpt-3.5-turbo-1106",
+    url: undefined,
     trainingDataTo: "09.2021",
     tokens: {
       contextWindow: 16385,
@@ -448,6 +483,7 @@ const dataOpenai: ITalkLlm[] = [
     title: "gpt-3.5-turbo-0613",
     company: "openai",
     model: "gpt-3.5-turbo-0613",
+    url: undefined,
     trainingDataTo: "09.2021",
     tokens: {
       contextWindow: 16385,
@@ -460,6 +496,7 @@ const dataOpenai: ITalkLlm[] = [
     title: "gpt-3.5-turbo",
     company: "openai",
     model: "gpt-3.5-turbo",
+    url: undefined,
     trainingDataTo: "09.2021",
     tokens: {
       contextWindow: 16385,
@@ -474,6 +511,7 @@ const dataPerplexity: ITalkLlm[] = [
     title: "llama-3-sonar-small-32k-online",
     company: "perplexity",
     model: "llama-3-sonar-small-32k-online",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 28000,
@@ -486,6 +524,7 @@ const dataPerplexity: ITalkLlm[] = [
     title: "llama-3-sonar-small-32k-chat",
     company: "perplexity",
     model: "llama-3-sonar-small-32k-chat",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 32768,
@@ -498,6 +537,7 @@ const dataPerplexity: ITalkLlm[] = [
     title: "llama-3-sonar-large-32k-online",
     company: "perplexity",
     model: "llama-3-sonar-large-32k-online",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 28000,
@@ -510,6 +550,7 @@ const dataPerplexity: ITalkLlm[] = [
     title: "llama-3-sonar-large-32k-chat",
     company: "perplexity",
     model: "llama-3-sonar-large-32k-chat",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 32768,
@@ -522,6 +563,7 @@ const dataPerplexity: ITalkLlm[] = [
     title: "llama-3.1-sonar-small-128k-online",
     company: "perplexity",
     model: "llama-3.1-sonar-small-128k-online",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 127072,
@@ -534,6 +576,7 @@ const dataPerplexity: ITalkLlm[] = [
     title: "llama-3.1-sonar-small-128k-chat",
     company: "perplexity",
     model: "llama-3.1-sonar-small-128k-chat",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 131072,
@@ -546,6 +589,7 @@ const dataPerplexity: ITalkLlm[] = [
     title: "llama-3.1-sonar-large-128k-online",
     company: "perplexity",
     model: "llama-3.1-sonar-large-128k-online",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 127072,
@@ -558,6 +602,7 @@ const dataPerplexity: ITalkLlm[] = [
     title: "llama-3.1-sonar-large-128k-chat",
     company: "perplexity",
     model: "llama-3.1-sonar-large-128k-chat",
+    url: undefined,
     trainingDataTo: undefined,
     tokens: {
       contextWindow: 131072,

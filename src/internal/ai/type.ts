@@ -18,6 +18,7 @@ export interface ITalk {
   llm: {
     llm: string | undefined;
     model: string | undefined;
+    url: string | undefined;
     temperature: string | undefined;
     stream: boolean;
   };
@@ -153,6 +154,7 @@ export interface ITalkLlm {
   title: string;
   company: string;
   model: string;
+  url: string | undefined;
   trainingDataTo: string | undefined;
   tokens: {
     contextWindow: number | undefined;

@@ -8,6 +8,7 @@ import { resourceSnippet } from './internal/controller/resource/snippet';
 import { testSse } from './internal/controller/test/sse';
 import { mobileJose } from './internal/controller/mobile/jose';
 import { raycastJose } from './internal/controller/raycast/jose';
+import { resourceSupabase } from './internal/controller/resource/supabase';
 
 dotenv.config();
 const port = process.env.PORT || 8080
@@ -22,6 +23,7 @@ app.post('/api/event/location', eventLocation());
 app.get('/api/resource/assistant', resourceAssistant());
 app.get('/api/resource/llm', resourceLlm());
 app.get('/api/resource/snippet', resourceSnippet());
+app.get('/api/resource/supabase', resourceSupabase());
 
 app.post('/test/sse', testSse("mock"));
 

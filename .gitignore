@@ -169,3 +169,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.\*
+
+# custom
+
+src/internal/ai/llm/ai_*
+.DS_Store
