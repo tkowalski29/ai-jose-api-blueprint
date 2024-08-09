@@ -35,6 +35,8 @@ export class BinaryLLM implements ILlm {
 
       const b64 = Buffer.from(JSON.stringify(chatData)).toString("base64");
       const output = this.#executeFile(filePath, b64);
+      console.log("output")
+      console.log(output)
       const out: ITalkDataResult = JSON.parse(output);
 
       // this.#removeLocalFile(filePath);
