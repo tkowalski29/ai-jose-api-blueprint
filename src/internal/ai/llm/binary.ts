@@ -23,7 +23,6 @@ export const LLM_BINARY = "binary";
 export class BinaryLLM implements ILlm {
   async chat(chatData: ITalk): Promise<{ stream: boolean; data: ITalkDataResult }> {
     const dir = "/tmp"
-    // const dir = __dirname
     let filePath = path.join(dir, chatData.llm.model ?? "");
     
     chatData.conversation.question.files = await base64Prepare(chatData.conversation.question.files)
@@ -166,24 +165,18 @@ export class BinaryLLM implements ILlm {
   }
 
   async #executeFile(filePath: string, b64: string): Promise<any> {
-
-
-    // const exec = util.promisify(require("child_process").exec);
-    // try {
-    //   const { stdout, stderr } = await exec(`ls`);
-
-    //   console.log(stdout)
+    try {
+      const { stdout, stderr } = await exec(`chmod +x ${filePath}; .${filePath} '${b64}'`);
   
-    //   if (stderr) {
-    //     console.error("Błąd podczas wykonywania pliku:");
-    //     console.error(stderr);
-    //     throw new Error(`Wystąpił błąd: ${stderr}`);
-    //   }
-
-    //   return stdout
-    // } catch (error) {
-    //   throw error;
-    // }
+      if (stderr !== "") {
+        throw stderr;
+      }
+  
+      console.log(stdout)
+      return stdout;
+    } catch (error) {
+      throw error;
+    }
 
 
     return new Promise((resolve, reject) => {
