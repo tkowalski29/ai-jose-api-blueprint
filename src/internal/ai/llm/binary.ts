@@ -166,7 +166,7 @@ export class BinaryLLM implements ILlm {
 
   async #executeFile(filePath: string, b64: string): Promise<any> {
     try {
-      const { stdout, stderr } = await exec(`chmod +x ${filePath}; .${filePath} '${b64}'`);
+      const { stdout, stderr } = await exec(`chmod +x ${filePath}; ${filePath} '${b64}'`);
   
       if (stderr) {
         throw stderr;
