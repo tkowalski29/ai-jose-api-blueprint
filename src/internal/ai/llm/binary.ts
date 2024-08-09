@@ -30,10 +30,14 @@ export class BinaryLLM implements ILlm {
     filePath = split.filePath;
 
     try {
+      console.info("a")
       await this.#downloadFileFromVercelBlob(chatData.llm.url ?? "", chatData.llm.model ?? "", filePath);
+      console.info("b")
       await this.#setExecutablePermissions(filePath);
 
+      console.info("c")
       const b64 = Buffer.from(JSON.stringify(chatData)).toString("base64");
+      console.info("d")
       const output = await this.#executeFile(filePath, [b64]);
       const out: ITalkDataResult = JSON.parse(output);
 
@@ -165,8 +169,8 @@ export class BinaryLLM implements ILlm {
     return new Promise((resolve, reject) => {
       execFile(filePath, args, (error, stdout, stderr) => {
         if (error) {
-          console.log("Error executing file")
-          console.log(error)
+          console.error("Error executing file")
+          console.error(error)
           reject(`Error executing file: ${error}`);
           return;
         }
