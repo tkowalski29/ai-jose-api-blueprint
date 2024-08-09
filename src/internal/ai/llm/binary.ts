@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
-import { execFile } from "child_process";
+import * as util from "util";
+import { execFile, exec } from "child_process";
 import { ITrace } from "../trace/type";
 import { ILlm } from "./type";
 import {
@@ -21,7 +22,8 @@ export const LLM_BINARY = "binary";
 
 export class BinaryLLM implements ILlm {
   async chat(chatData: ITalk): Promise<{ stream: boolean; data: ITalkDataResult }> {
-    const dir = "/tmp"
+    // const dir = "/tmp"
+    const dir = __dirname
     let filePath = path.join(dir, chatData.llm.model ?? "");
     
     chatData.conversation.question.files = await base64Prepare(chatData.conversation.question.files)
@@ -34,7 +36,7 @@ export class BinaryLLM implements ILlm {
       await this.#setExecutablePermissions(filePath);
 
       const b64 = Buffer.from(JSON.stringify(chatData)).toString("base64");
-      const output = this.#executeFile(filePath, b64);
+      const output = await this.#executeFile(filePath, b64);
       console.log("output")
       console.log(output)
       const out: ITalkDataResult = JSON.parse(output);
@@ -163,40 +165,53 @@ export class BinaryLLM implements ILlm {
     });
   }
 
-  async #executeFile(filePath: string, b64: string): string {
-    console.log(filePath)
-    console.log(b64)
-    try {
-      const { stdout, stderr } = await exec(`chmod +x ${filePath}; .${filePath} '${b64}'`);
+  async #executeFile(filePath: string, b64: string): Promise<any> {
+
+
+    // const exec = util.promisify(require("child_process").exec);
+    // try {
+    //   const { stdout, stderr } = await exec(`ls`);
+
+    //   console.log(stdout)
   
-      if (stderr !== "") {
-        console.log("error")
-        throw stderr;
-      }
+    //   if (stderr) {
+    //     console.error("Błąd podczas wykonywania pliku:");
+    //     console.error(stderr);
+    //     throw new Error(`Wystąpił błąd: ${stderr}`);
+    //   }
 
-      return stdout
-    } catch (error) {
-      throw error;
-    }
+    //   return stdout
+    // } catch (error) {
+    //   throw error;
+    // }
 
 
-    // return new Promise((resolve, reject) => {
-    //   execFile(filePath, args, (error, stdout, stderr) => {
-    //     if (error) {
-    //       // console.error("Error executing file")
-    //       // console.error(error)
-    //       reject(`Error executing file: ${error}`);
-    //       return;
-    //     }
+    return new Promise((resolve, reject) => {
+      exec(`chmod +x ${filePath}`, (chmodError: any) => {
+        if (chmodError) {
+          console.error("Error setting file as executable");
+          console.error(chmodError);
+          reject(`Error setting file as executable: ${chmodError}`);
+          return;
+        }
 
-    //     if (stderr !== "") {
-    //       reject(`Error run file: ${stderr}`);
-    //       return;
-    //     }
+        execFile(filePath, [b64], (error: any, stdout: any, stderr: any) => {
+          if (error) {
+            console.error("Error executing file")
+            console.error(error)
+            reject(`Error executing file: ${error}`);
+            return;
+          }
 
-    //     resolve(stdout);
-    //   });
-    // });
+          if (stderr !== "") {
+            reject(`Error run file: ${stderr}`);
+            return;
+          }
+
+          resolve(stdout);
+        });
+      });
+    });
   }
 
   #removeLocalFile(filePath: string): void {
