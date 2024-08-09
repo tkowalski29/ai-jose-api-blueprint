@@ -165,6 +165,8 @@ export class BinaryLLM implements ILlm {
     return new Promise((resolve, reject) => {
       execFile(filePath, args, (error, stdout, stderr) => {
         if (error) {
+          console.log("Error executing file")
+          console.log(error)
           reject(`Error executing file: ${error}`);
           return;
         }
