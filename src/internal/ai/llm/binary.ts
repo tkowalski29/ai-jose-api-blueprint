@@ -36,8 +36,6 @@ export class BinaryLLM implements ILlm {
 
       const b64 = Buffer.from(JSON.stringify(chatData)).toString("base64");
       const output = await this.#executeFile(filePath, b64);
-      console.log("output")
-      console.log(output)
       const out: ITalkDataResult = JSON.parse(output);
 
       // this.#removeLocalFile(filePath);
@@ -165,20 +163,6 @@ export class BinaryLLM implements ILlm {
   }
 
   async #executeFile(filePath: string, b64: string): Promise<any> {
-    try {
-      const { stdout, stderr } = await exec(`chmod +x ${filePath}; ${filePath} '${b64}'`);
-  
-      if (stderr) {
-        throw stderr;
-      }
-  
-      console.log(stdout)
-      return stdout;
-    } catch (error) {
-      throw error;
-    }
-
-
     return new Promise((resolve, reject) => {
       exec(`chmod +x ${filePath}`, (chmodError: any) => {
         if (chmodError) {
