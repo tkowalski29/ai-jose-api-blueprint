@@ -79,7 +79,11 @@ export const mobileJose = () => async (req: Request, res: Response) => {
       const r = llm.prepareResponse(chatData, answer.stream, trace, answer.data)
       console.log("SEND data")
 
-      res.write("data: " + JSON.stringify(r) + "\n\n");
+      if (chatData.llm.outputFormat === "json") {
+        res.json(r);
+      } else {
+        res.write("data: " + JSON.stringify(r) + "\n\n");
+      }
       trace.finish()
       res.end();
       return;
@@ -132,6 +136,7 @@ const parse = async (req: Request): Promise<ITalk> => {
       url: req.body.llm.url || undefined,
       temperature: req.body.llm.temperature || undefined,
       stream: req.body.llm.stream || false,
+      outputFormat: req.body.llm.outputFormat || "stream",
     },
     user: {
       id: req.body.user.id,

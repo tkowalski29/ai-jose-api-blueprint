@@ -112,6 +112,7 @@ const parse = async (req: Request): Promise<ITalk> => {
       url: req.body.llm.url || undefined,
       temperature: req.body.llm.temperature || undefined,
       stream: req.body.llm.stream || false,
+      outputFormat: req.body.llm.outputFormat || "stream",
     },
     user: {
       id: req.body.user.id,

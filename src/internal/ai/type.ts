@@ -21,6 +21,7 @@ export interface ITalk {
     url: string | undefined;
     temperature: string | undefined;
     stream: boolean;
+    outputFormat: string;
   };
   user: {
     id: string;
@@ -72,7 +73,7 @@ export interface ITalkQuestion {
 }
 export interface ITalkQuestionFile {
   type: string;
-  path: string;
+  path: string | undefined;
   base64: string | undefined;
   url: string | undefined;
 }

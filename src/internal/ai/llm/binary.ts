@@ -9,10 +9,11 @@ import {
   ITalkDataResult,
   ITalkHistory,
   ITalkQuestion,
-  ITalkQuestionFile,
   newTalkDataResult,
 } from "../type";
 import fetch from "node-fetch";
+import { base64Prepare } from "../helper/file";
+import { binarySplit } from "../helper/llm";
 // @ts-expect-error ignore
 globalThis.fetch = fetch;
 
@@ -20,20 +21,13 @@ export const LLM_BINARY = "binary";
 
 export class BinaryLLM implements ILlm {
   async chat(chatData: ITalk): Promise<{ stream: boolean; data: ITalkDataResult }> {
-    let filePath = path.join(__dirname, chatData.llm.model ?? "");
-    if (chatData.conversation.question.files !== undefined) {
-      chatData.conversation.question.files
-        .filter((f: ITalkQuestionFile) => Object.keys(f).length > 0)
-        .forEach((f: ITalkQuestionFile) => {
-          f.type = "image";
-          f.base64 = fs.readFileSync(f.path, { encoding: "base64" });
-        });
-    }
-    if ((chatData.llm.model ?? "").includes("||")) {
-      const chars = (chatData.llm.model ?? "").split("||");
-      chatData.llm.model = chars[1];
-      filePath = path.join(__dirname, chars[0]);
-    }
+    const dir = "/tmp"
+    let filePath = path.join(dir, chatData.llm.model ?? "");
+    
+    chatData.conversation.question.files = await base64Prepare(chatData.conversation.question.files)
+    const split = binarySplit(dir, chatData.llm.model)
+    chatData.llm.model = split.model;
+    filePath = split.filePath;
 
     try {
       await this.#downloadFileFromVercelBlob(chatData.llm.url ?? "", chatData.llm.model ?? "", filePath);
