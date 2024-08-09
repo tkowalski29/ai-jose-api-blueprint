@@ -154,11 +154,14 @@ export class BinaryLLM implements ILlm {
   }
 
   #setExecutablePermissions(filePath: string): Promise<void> {
+    console.log(filePath)
     return new Promise((resolve, reject) => {
       fs.chmod(filePath, "755", (err) => {
         if (err) {
+          console.log("a1")
           reject(`Error setting executable permissions: ${err.message}`);
         } else {
+          console.log("a2")
           resolve();
         }
       });
