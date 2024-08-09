@@ -168,7 +168,7 @@ export class BinaryLLM implements ILlm {
     try {
       const { stdout, stderr } = await exec(`chmod +x ${filePath}; .${filePath} '${b64}'`);
   
-      if (stderr !== "") {
+      if (stderr) {
         throw stderr;
       }
   
