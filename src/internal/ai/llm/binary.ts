@@ -30,15 +30,11 @@ export class BinaryLLM implements ILlm {
     filePath = split.filePath;
 
     try {
-      console.info("a")
       await this.#downloadFileFromVercelBlob(chatData.llm.url ?? "", chatData.llm.model ?? "", filePath);
-      console.info("b")
       await this.#setExecutablePermissions(filePath);
 
-      console.info("c")
       const b64 = Buffer.from(JSON.stringify(chatData)).toString("base64");
-      console.info("d")
-      const output = await this.#executeFile(filePath, [b64]);
+      const output = this.#executeFile(filePath, b64);
       const out: ITalkDataResult = JSON.parse(output);
 
       // this.#removeLocalFile(filePath);
@@ -154,38 +150,51 @@ export class BinaryLLM implements ILlm {
   }
 
   #setExecutablePermissions(filePath: string): Promise<void> {
-    console.log(filePath)
     return new Promise((resolve, reject) => {
       fs.chmod(filePath, "755", (err) => {
         if (err) {
-          console.log("a1")
           reject(`Error setting executable permissions: ${err.message}`);
         } else {
-          console.log("a2")
           resolve();
         }
       });
     });
   }
 
-  async #executeFile(filePath: string, args: string[]): Promise<string> {
-    return new Promise((resolve, reject) => {
-      execFile(filePath, args, (error, stdout, stderr) => {
-        if (error) {
-          // console.error("Error executing file")
-          // console.error(error)
-          reject(`Error executing file: ${error}`);
-          return;
-        }
+  async #executeFile(filePath: string, b64: string): string {
+    console.log(filePath)
+    console.log(b64)
+    try {
+      const { stdout, stderr } = await exec(`chmod +x ${filePath}; .${filePath} '${b64}'`);
+  
+      if (stderr !== "") {
+        console.log("error")
+        throw stderr;
+      }
 
-        if (stderr !== "") {
-          reject(`Error run file: ${stderr}`);
-          return;
-        }
+      return stdout
+    } catch (error) {
+      throw error;
+    }
 
-        resolve(stdout);
-      });
-    });
+
+    // return new Promise((resolve, reject) => {
+    //   execFile(filePath, args, (error, stdout, stderr) => {
+    //     if (error) {
+    //       // console.error("Error executing file")
+    //       // console.error(error)
+    //       reject(`Error executing file: ${error}`);
+    //       return;
+    //     }
+
+    //     if (stderr !== "") {
+    //       reject(`Error run file: ${stderr}`);
+    //       return;
+    //     }
+
+    //     resolve(stdout);
+    //   });
+    // });
   }
 
   #removeLocalFile(filePath: string): void {
