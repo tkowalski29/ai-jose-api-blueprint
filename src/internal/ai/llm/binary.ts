@@ -22,8 +22,8 @@ export const LLM_BINARY = "binary";
 
 export class BinaryLLM implements ILlm {
   async chat(chatData: ITalk): Promise<{ stream: boolean; data: ITalkDataResult }> {
-    // const dir = "/tmp"
-    const dir = __dirname
+    const dir = "/tmp"
+    // const dir = __dirname
     let filePath = path.join(dir, chatData.llm.model ?? "");
     
     chatData.conversation.question.files = await base64Prepare(chatData.conversation.question.files)
