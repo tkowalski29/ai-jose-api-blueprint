@@ -36,7 +36,7 @@ export class OllamaLLM implements ILlm {
       const answer = await this.llm.chat({
         // @ts-expect-error ignore
         stream: chatData.llm.stream,
-        model: chatData.llm.model || this.defaultModel,
+        model: chatData.llm.object.model || this.defaultModel,
         messages: this.#prepareMessage(
           chatData.conversation.system,
           chatData.conversation.history,

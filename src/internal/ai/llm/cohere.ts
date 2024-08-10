@@ -35,7 +35,7 @@ export class CohereLLM implements ILlm {
     try {
       if (!chatData.llm.stream) {
         const answer = await this.llm.chat({
-          model: chatData.llm.model || this.defaultModel,
+          model: chatData.llm.object.model || this.defaultModel,
           chatHistory: this.#prepareMessage(undefined, chatData.conversation.history, undefined),
           preamble: chatData.conversation.system,
           message: chatData.conversation.question.content,
@@ -47,7 +47,7 @@ export class CohereLLM implements ILlm {
         };
       } else {
         const answer = await this.llm.chatStream({
-          model: chatData.llm.model || this.defaultModel,
+          model: chatData.llm.object.model || this.defaultModel,
           chatHistory: this.#prepareMessage(undefined, chatData.conversation.history, undefined),
           preamble: chatData.conversation.system,
           message: chatData.conversation.question.content,

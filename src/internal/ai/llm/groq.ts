@@ -33,7 +33,7 @@ export class GroqLLM implements ILlm {
     try {
       const answer = await this.llm.chat.completions.create({
         stream: chatData.llm.stream,
-        model: chatData.llm.model || this.defaultModel,
+        model: chatData.llm.object.model || this.defaultModel,
         messages: this.#prepareMessage(
           chatData.conversation.system,
           chatData.conversation.history,

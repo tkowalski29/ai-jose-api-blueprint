@@ -14,7 +14,6 @@ import {
 } from "../type";
 import fetch from "node-fetch";
 import { base64Prepare } from "../helper/file";
-import { binarySplit } from "../helper/llm";
 // @ts-expect-error ignore
 globalThis.fetch = fetch;
 
@@ -22,17 +21,17 @@ export const LLM_BINARY = "binary";
 
 export class BinaryLLM implements ILlm {
   async chat(chatData: ITalk): Promise<{ stream: boolean; data: ITalkDataResult }> {
-    const dir = "/tmp"
-    let filePath = path.join(dir, chatData.llm.model ?? "");
+    // const dir = "/tmp"
+    const dir = __dirname
+    let filePath = path.join(dir, chatData.llm.object.fileDownloadName ?? "");
     
     chatData.conversation.question.files = await base64Prepare(chatData.conversation.question.files)
-    const split = binarySplit(dir, chatData.llm.model)
-    chatData.llm.model = split.model;
-    filePath = split.filePath;
 
     try {
-      await this.#downloadFileFromVercelBlob(chatData.llm.url ?? "", chatData.llm.model ?? "", filePath);
-      await this.#setExecutablePermissions(filePath);
+      if (!fs.existsSync(filePath)) {
+        await this.#downloadFileFromVercelBlob(chatData.llm.object.fileDownloadUrl ?? "", filePath);
+        await this.#setExecutablePermissions(filePath);
+      }
 
       const b64 = Buffer.from(JSON.stringify(chatData)).toString("base64");
       const output = await this.#executeFile(filePath, b64);
@@ -132,7 +131,7 @@ export class BinaryLLM implements ILlm {
     return result;
   }
 
-  async #downloadFileFromVercelBlob(fileUrl: string, fileName: string, outputLocationPath: string): Promise<void> {
+  async #downloadFileFromVercelBlob(fileUrl: string, outputLocationPath: string): Promise<void> {
     if (fs.existsSync(outputLocationPath)) {
       return;
     }
@@ -166,23 +165,20 @@ export class BinaryLLM implements ILlm {
     return new Promise((resolve, reject) => {
       exec(`chmod +x ${filePath}`, (chmodError: any) => {
         if (chmodError) {
-          console.error("Error setting file as executable");
-          console.error(chmodError);
           reject(`Error setting file as executable: ${chmodError}`);
-          return;
         }
 
         execFile(filePath, [b64], (error: any, stdout: any, stderr: any) => {
           if (error) {
-            console.error("Error executing file")
-            console.error(error)
+            console.log("error")
+            console.log(error)
             reject(`Error executing file: ${error}`);
-            return;
           }
 
           if (stderr !== "") {
+            console.log("stderr")
+            console.log(stderr)
             reject(`Error run file: ${stderr}`);
-            return;
           }
 
           resolve(stdout);

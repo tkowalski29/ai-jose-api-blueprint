@@ -8,7 +8,7 @@ import { LLM_OPENAI, OpenaiLLM } from "../../ai/llm/openai";
 import { LLM_PERPLEXITY, PerplexityLLM } from "../../ai/llm/perplexity";
 import { LangFuseTrace } from "../../ai/trace/langfuse";
 import { LunaryTrace } from "../../ai/trace/lunary";
-import { EMessage_role, ITalk, ITalkHistory } from "../../ai/type";
+import { ITalk } from "../../ai/type";
 import { Trace } from "../../ai/trace/trace";
 import { LLM_BINARY, BinaryLLM } from "../../ai/llm/binary";
 
@@ -35,11 +35,11 @@ export const mobileJose = () => async (req: Request, res: Response) => {
   try {
     const trace = new Trace();
     trace.init(langFuseTrace, lunaryTrace);
-    trace.start(chatData, [`llm:${chatData.llm.llm}`, `stream:${chatData.llm.stream}`]);
+    trace.start(chatData, [`llm:${chatData.llm.object.company}`, `model:${chatData.llm.object.model}`, `stream:${chatData.llm.stream}`]);
     let llm: ILlm | undefined = undefined
 
     trace.llmStart(chatData);
-    switch (chatData.llm.llm) {
+    switch (chatData.llm.object.company) {
       case LLM_ANTHROPIC:
         llm = new AnthropicLLM(process.env.ANTHROPIC_API_KEY)
         break;
@@ -120,20 +120,11 @@ export const mobileJose = () => async (req: Request, res: Response) => {
 };
 
 const parse = async (req: Request): Promise<ITalk> => {
-  let _llm = req.body.llm.llm
-  let _model = req.body.llm.model
-  if (_llm === _model) {
-    const chars = _llm.split('__');
-    _llm = chars[0];
-    _model = chars[1];
-  }
-
   return {
     id: req.body.id,
     llm: {
-      llm: _llm || undefined,
-      model: _model || undefined,
-      url: req.body.llm.url || undefined,
+      key: req.body.llm.key,
+      object: req.body.llm.object,
       temperature: req.body.llm.temperature || undefined,
       stream: req.body.llm.stream || false,
       outputFormat: req.body.llm.outputFormat || "stream",
@@ -151,7 +142,7 @@ const parse = async (req: Request): Promise<ITalk> => {
       type: req.body.conversation.type,
       system: req.body.conversation.system || undefined,
       question: req.body.conversation.question,
-      history: parseHistory(req.body.conversation.history),
+      history: req.body.conversation.history,
     },
     assistant: {
       id: req.body.assistant.id,
@@ -165,38 +156,3 @@ const parse = async (req: Request): Promise<ITalk> => {
     result: req.body.result || undefined,
   };
 };
-
-const parseHistory = (req: string): ITalkHistory[] => {
-  let r: ITalkHistory[] = []
-
-  try {
-    if (req === undefined || req === "" || req === "[]") {
-      return r
-    }
-  
-    const parsedArray = JSON.parse(req);
-    
-    if (!Array.isArray(parsedArray) || parseHistory.length === 0) {
-      return r
-    }
-  
-    parsedArray.map(item => {
-      if (item.question.content) {
-        r.push({
-          role: EMessage_role.USER,
-          content: item.question.content,
-        })
-      }
-      if (item.answer.content) {
-        r.push({
-          role: EMessage_role.AI,
-          content: item.answer.content,
-        })
-      }
-    });
-  
-    return r
-  } catch(e) {
-    return r
-  }
-}

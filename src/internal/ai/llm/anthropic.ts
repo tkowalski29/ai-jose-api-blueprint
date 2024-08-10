@@ -33,7 +33,7 @@ export class AnthropicLLM implements ILlm {
     try {
       const answer = await this.llm.messages.create({
         stream: chatData.llm.stream,
-        model: chatData.llm.model || this.defaultModel,
+        model: chatData.llm.object.model || this.defaultModel,
         messages: this.#prepareMessage("", chatData.conversation.history, chatData.conversation.question),
         system: chatData.conversation.system,
         max_tokens: 1024,

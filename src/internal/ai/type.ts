@@ -16,9 +16,8 @@ export enum EMessage_role {
 export interface ITalk {
   id: string;
   llm: {
-    llm: string | undefined;
-    model: string | undefined;
-    url: string | undefined;
+    key: string,
+    object: ITalkLlm,
     temperature: string | undefined;
     stream: boolean;
     outputFormat: string;
@@ -60,8 +59,8 @@ export const initData = (d: ITalk): ITalk => {
     model = d.snippet.object.model;
   }
   const models = model.split("__");
-  d.llm.llm = models[0];
-  d.llm.model = models[1];
+  d.llm.object.company = models[0];
+  d.llm.object.model = models[1];
   d.conversation.system = ReplacePlaceholders(d, promptString);
 
   return d;
@@ -135,6 +134,7 @@ export interface ITalkAssistant {
   additionalData: string | undefined;
   snippet: string[] | undefined;
   isLocal: boolean;
+  llm: string | undefined;
 }
 
 export interface ITalkSnippet {
@@ -155,11 +155,12 @@ export interface ITalkLlm {
   title: string;
   company: string;
   model: string;
-  url: string | undefined;
   trainingDataTo: string | undefined;
   tokens: {
     contextWindow: number | undefined;
     maxOutput: number | undefined;
   };
   isLocal: boolean;
+  fileDownloadUrl: string | undefined;
+  fileDownloadName: string | undefined;
 }
