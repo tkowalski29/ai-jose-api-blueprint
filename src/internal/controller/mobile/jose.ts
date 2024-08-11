@@ -11,6 +11,7 @@ import { LunaryTrace } from "../../ai/trace/lunary";
 import { ITalk } from "../../ai/type";
 import { Trace } from "../../ai/trace/trace";
 import { LLM_BINARY, BinaryLLM } from "../../ai/llm/binary";
+import { LLM_API, ApiLLM } from "../../ai/llm/api";
 
 export const mobileJose = () => async (req: Request, res: Response) => {
   const chatData = await parse(req);
@@ -42,6 +43,11 @@ export const mobileJose = () => async (req: Request, res: Response) => {
     switch (chatData.llm.object.company) {
       case LLM_ANTHROPIC:
         llm = new AnthropicLLM(process.env.ANTHROPIC_API_KEY)
+        break;
+      case LLM_API:
+        chatData.llm.stream = false
+
+        llm = new ApiLLM()
         break;
       case LLM_BINARY:
         chatData.llm.stream = false
