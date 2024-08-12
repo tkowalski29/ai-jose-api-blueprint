@@ -16,6 +16,8 @@ sync:
   image: alpine:latest
   rules:
     - when: manual
+  before_script:
+    - .init_ssh
   script:
     - apk add --no-cache git
 
