@@ -11,6 +11,7 @@ import { LunaryTrace } from "../../ai/trace/lunary";
 import { ITalk } from "../../ai/type";
 import { Trace } from "../../ai/trace/trace";
 import { LLM_BINARY, BinaryLLM } from "../../ai/llm/binary";
+import { LLM_API, ApiLLM } from "../../ai/llm/api";
 
 export const raycastJose = () => async (req: Request, res: Response) => {
   const chatData = await parse(req);
@@ -35,13 +36,18 @@ export const raycastJose = () => async (req: Request, res: Response) => {
   try {
     const trace = new Trace();
     trace.init(langFuseTrace, lunaryTrace);
-    trace.start(chatData, [`llm:${chatData.llm.llm}`, `stream:${chatData.llm.stream}`]);
+    trace.start(chatData, [`llm:${chatData.llm.object.company}`, `model:${chatData.llm.object.model}`, `stream:${chatData.llm.stream}`]);
     let llm: ILlm | undefined = undefined
 
     trace.llmStart(chatData);
-    switch (chatData.llm.llm) {
+    switch (chatData.llm.object.company) {
       case LLM_ANTHROPIC:
         llm = new AnthropicLLM(process.env.ANTHROPIC_API_KEY)
+        break;
+      case LLM_API:
+        chatData.llm.stream = false
+
+        llm = new ApiLLM()
         break;
       case LLM_BINARY:
         chatData.llm.stream = false
@@ -107,9 +113,8 @@ const parse = async (req: Request): Promise<ITalk> => {
   return {
     id: req.body.id,
     llm: {
-      llm: req.body.llm.llm || undefined,
-      model: req.body.llm.model || undefined,
-      url: req.body.llm.url || undefined,
+      key: req.body.llm.key,
+      object: req.body.llm.object,
       temperature: req.body.llm.temperature || undefined,
       stream: req.body.llm.stream || false,
       outputFormat: req.body.llm.outputFormat || "stream",

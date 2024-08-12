@@ -22,6 +22,7 @@ const data: ITalkAssistant[] = [
     additionalData: undefined,
     snippet: undefined,
     isLocal: true,
+    llm: "openai__gpt-4o-mini",
   },
   {
     typeCommunication: "local",
@@ -37,6 +38,7 @@ const data: ITalkAssistant[] = [
     additionalData: undefined,
     snippet: undefined,
     isLocal: true,
+    llm: "openai__gpt-4o-mini",
   },
   {
     typeCommunication: "local",
@@ -52,6 +54,7 @@ const data: ITalkAssistant[] = [
     additionalData: undefined,
     snippet: undefined,
     isLocal: true,
+    llm: "openai__gpt-4o-mini",
   },
   {
     typeCommunication: "local",
@@ -67,6 +70,7 @@ const data: ITalkAssistant[] = [
     additionalData: undefined,
     snippet: undefined,
     isLocal: true,
+    llm: "openai__gpt-4o-mini",
   },
   {
     typeCommunication: "local",
@@ -82,6 +86,7 @@ const data: ITalkAssistant[] = [
     additionalData: undefined,
     snippet: undefined,
     isLocal: true,
+    llm: "openai__gpt-4o-mini",
   },
   {
     typeCommunication: "local",
@@ -97,6 +102,7 @@ const data: ITalkAssistant[] = [
     additionalData: undefined,
     snippet: undefined,
     isLocal: true,
+    llm: "openai__gpt-4o-mini",
   },
   {
     typeCommunication: "local",
@@ -113,5 +119,6 @@ const data: ITalkAssistant[] = [
     additionalData: undefined,
     snippet: undefined,
     isLocal: true,
+    llm: "openai__gpt-4o-mini",
   },
 ]

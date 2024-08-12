@@ -48,7 +48,7 @@ export class LangFuseTrace {
 
     const obj = {
       id: chatData.id,
-      name: chatData.llm.model,
+      name: chatData.llm.key,
       userId: chatData.user.id,
       input: chatData.conversation.history,
       metadata: {
@@ -68,7 +68,7 @@ export class LangFuseTrace {
 
     this.traceObject = this.traceObject.generation({
       // input: openAiMessages,
-      model: chatData.llm.model,
+      model: chatData.llm.key,
       // modelParameters: {
       //   temperature: 0.7,
       // },

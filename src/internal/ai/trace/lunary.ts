@@ -38,7 +38,7 @@ export class LunaryTrace {
     const obj = {
       runId: chatData.id,
       userId: chatData.user.id,
-      name: chatData.llm.model,
+      name: chatData.llm.key,
       input: chatData.conversation.history,
     };
     if (tags !== undefined) {

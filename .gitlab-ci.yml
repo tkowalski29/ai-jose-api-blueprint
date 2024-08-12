@@ -1,3 +1,4 @@
+
 image: docker:latest
 
 stages:
@@ -20,7 +21,7 @@ sync:
     - when: never
   before_script:
     - apk add --no-cache openssh git curl
-    - *init_ssh 
+    - *init_ssh  # Upewnij się, że masz zdefiniowaną sekcję `init_ssh` w swoim CI/CD
   script:
     - echo "Configuring Git..."
     - git config --global user.email "tkowalski@iseno.net"
@@ -31,7 +32,7 @@ sync:
     - cd repository
     
     - echo "Adding GitHub remote..."
-    - git remote add github git@github.com:tkowalski29/ai-jose-api-blueprint.git
+    - git remote add github https://github.com/tkowalski29/ai-jose-api-blueprint.git
     
     - echo "Fetching from GitHub..."
     - git fetch github main
@@ -39,7 +40,7 @@ sync:
     - echo "Checking out new branch..."
     - git checkout -b sync-github
     
-    - echo "Merging GitHub main branch..."
+    - echo "Merging GitHub main branch into local branch..."
     - git merge --no-ff github/main
     
     - echo "Pushing changes to GitLab..."
@@ -53,7 +54,6 @@ sync:
            --form "target_branch=main" \
            --form "title=Sync with GitHub: main" \
            --form "description=Automated sync with GitHub repository"
-
 
 docker:image:
   stage: build
