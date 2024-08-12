@@ -27,7 +27,7 @@ sync:
     - git checkout -b sync-github
     - git merge --no-ff github/main
     - git push -u origin sync-github
-
+    - >
       curl --header "PRIVATE-TOKEN: $CI_JOB_TOKEN" -X POST "$CI_API_V4_URL/projects/$CI_PROJECT_ID/merge_requests" 
       -d "source_branch=sync-github" 
       -d "target_branch=main" 
