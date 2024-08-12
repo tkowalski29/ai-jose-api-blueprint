@@ -1,4 +1,6 @@
-FROM node:20
+FROM node:20.5.1-alpine
+
+RUN npm install -g typescript
 
 WORKDIR /app
 
