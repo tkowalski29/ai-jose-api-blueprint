@@ -22,6 +22,8 @@ sync:
     - apk add --no-cache openssh git curl
     - *init_ssh
   script:
+    - git config --global user.email "tkowalski@iseno.net"
+    - git config --global user.name "Tomasz Kowalski"
     - git clone git@gitlab.com:connectors4/ai-jose-api.git repository
     - cd repository
 
