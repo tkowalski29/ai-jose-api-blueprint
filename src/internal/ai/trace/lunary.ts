@@ -22,7 +22,7 @@ export class LunaryTrace {
   #initialize() {
     if (this.trace === undefined) {
       const t = lunary;
-      t.init({ appId: process.env.LUNARY_PUBLIC_KEY });
+      t.init({ appId: process.env.JOSE_API_LUNARY_PUBLIC_KEY });
 
       this.trace = t;
     }

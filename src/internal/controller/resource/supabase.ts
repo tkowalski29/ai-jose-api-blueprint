@@ -2,7 +2,7 @@ import type { Request, Response} from "express";
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 export const resourceSupabase = () => async (req: Request, res: Response) => {
-  const supabase: SupabaseClient = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+  const supabase: SupabaseClient = createClient(process.env.JOSE_API_SUPABASE_URL, process.env.JOSE_API_SUPABASE_KEY);
 
   try {
     const { data, error } = await supabase

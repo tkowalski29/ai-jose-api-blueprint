@@ -11,7 +11,7 @@ import { raycastJose } from './internal/controller/raycast/jose';
 import { resourceSupabase } from './internal/controller/resource/supabase';
 
 dotenv.config();
-const port = process.env.PORT || 8080
+const port = process.env.JOSE_API_PORT || 8080
 const app = initialize();
 
 app.get('/', (req, res) => {

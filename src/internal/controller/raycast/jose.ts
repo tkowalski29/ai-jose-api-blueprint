@@ -19,18 +19,18 @@ export const raycastJose = () => async (req: Request, res: Response) => {
   let langFuseTrace = undefined;
   let lunaryTrace = undefined;
   if (
-      (process.env.LANGFUSE_SECRET_KEY !== "" && process.env.LANGFUSE_SECRET_KEY !== undefined) &&
-      (process.env.LANGFUSE_PUBLIC_KEY !== "" && process.env.LANGFUSE_PUBLIC_KEY !== undefined) &&
-      (process.env.LANGFUSE_HOST !== "" && process.env.LANGFUSE_HOST !== undefined) &&
+      (process.env.JOSE_API_LANGFUSE_SECRET_KEY !== "" && process.env.JOSE_API_LANGFUSE_SECRET_KEY !== undefined) &&
+      (process.env.JOSE_API_LANGFUSE_PUBLIC_KEY !== "" && process.env.JOSE_API_LANGFUSE_PUBLIC_KEY !== undefined) &&
+      (process.env.JOSE_API_LANGFUSE_HOST !== "" && process.env.JOSE_API_LANGFUSE_HOST !== undefined) &&
       1 === 1
   ) {
-    langFuseTrace = new LangFuseTrace(process.env.LANGFUSE_SECRET_KEY, process.env.LANGFUSE_PUBLIC_KEY, process.env.LANGFUSE_HOST);
+    langFuseTrace = new LangFuseTrace(process.env.JOSE_API_LANGFUSE_SECRET_KEY, process.env.JOSE_API_LANGFUSE_PUBLIC_KEY, process.env.JOSE_API_LANGFUSE_HOST);
   }
   if (
-    (process.env.LUNARY_PUBLIC_KEY !== "" && process.env.LUNARY_PUBLIC_KEY !== undefined) &&
+    (process.env.JOSE_API_LUNARY_PUBLIC_KEY !== "" && process.env.JOSE_API_LUNARY_PUBLIC_KEY !== undefined) &&
     1 === 1
   ) {
-    lunaryTrace = new LunaryTrace(process.env.LUNARY_PUBLIC_KEY);
+    lunaryTrace = new LunaryTrace(process.env.JOSE_API_LUNARY_PUBLIC_KEY);
   }
 
   try {
@@ -42,7 +42,7 @@ export const raycastJose = () => async (req: Request, res: Response) => {
     trace.llmStart(chatData);
     switch (chatData.llm.object.company) {
       case LLM_ANTHROPIC:
-        llm = new AnthropicLLM(process.env.ANTHROPIC_API_KEY)
+        llm = new AnthropicLLM(process.env.JOSE_API_ANTHROPIC_API_KEY)
         break;
       case LLM_API:
         chatData.llm.stream = false
@@ -55,19 +55,19 @@ export const raycastJose = () => async (req: Request, res: Response) => {
         llm = new BinaryLLM()
         break;
       case LLM_COHERE:
-        llm = new CohereLLM(process.env.COHERE_API_KEY)
+        llm = new CohereLLM(process.env.JOSE_API_COHERE_API_KEY)
         break;
       case LLM_GROQ:
-        llm = new GroqLLM(process.env.GROQ_API_KEY)
+        llm = new GroqLLM(process.env.JOSE_API_GROQ_API_KEY)
         break;
       case LLM_OLLAMA:
-        llm = new OllamaLLM(process.env.OLLAMA_API_URL)
+        llm = new OllamaLLM(process.env.JOSE_API_OLLAMA_API_URL)
         break;
       case LLM_OPENAI:
-        llm = new OpenaiLLM(process.env.OPENAI_API_KEY)
+        llm = new OpenaiLLM(process.env.JOSE_API_OPENAI_API_KEY)
         break;
       case LLM_PERPLEXITY:
-        llm = new PerplexityLLM(process.env.PERPLEXITY_API_KEY)
+        llm = new PerplexityLLM(process.env.JOSE_API_PERPLEXITY_API_KEY)
         break;
     }
 
