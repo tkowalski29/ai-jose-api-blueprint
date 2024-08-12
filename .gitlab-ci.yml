@@ -17,10 +17,9 @@ sync:
   rules:
     - when: manual
   before_script:
+    - apk add --no-cache openssh git curl
     - *init_ssh
   script:
-    - apk add --no-cache openssh git curl
-
     - git clone git@gitlab.com:connectors4/ai-jose-api.git repository
     - cd repository
 
