@@ -28,13 +28,20 @@ export class BinaryLLM implements ILlm {
     chatData.conversation.question.files = await base64Prepare(chatData.conversation.question.files)
 
     try {
+      console.log("check file " + filePath)
       if (!fs.existsSync(filePath)) {
-        await this.#downloadFileFromVercelBlob(chatData.llm.object.fileDownloadUrl ?? "", filePath);
+        console.log("not exist")
+        await this.#downloadFileFromUrl(chatData.llm.object.fileDownloadUrl ?? "", filePath);
+        console.log("download finish, try permision")
         await this.#setExecutablePermissions(filePath);
       }
 
+      console.log("prepare b64")
       const b64 = Buffer.from(JSON.stringify(chatData)).toString("base64");
+      console.log(b64)
+      console.log("try execute")
       const output = await this.#executeFile(filePath, b64);
+      console.log("finish execute")
       const out: ITalkDataResult = JSON.parse(output);
 
       // this.#removeLocalFile(filePath);
@@ -88,50 +95,10 @@ export class BinaryLLM implements ILlm {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result: any[] = [];
 
-    if (systemMessage) {
-      result.push({
-        role: "system",
-        content: systemMessage,
-      });
-    }
-
-    for (const msg of msgs) {
-      switch (msg.role) {
-        case EMessage_role.USER:
-          result.push({
-            role: "user",
-            content: msg.content,
-          });
-          break;
-        case EMessage_role.AI:
-          result.push({
-            role: "assistant",
-            content: msg.content,
-          });
-          break;
-        case EMessage_role.SYSTEM:
-          result.push({
-            role: "system",
-            content: msg.content,
-          });
-          break;
-        case EMessage_role.FUNCTION || EMessage_role.TOOL:
-          continue;
-          break;
-      }
-    }
-
-    if (lastMessage) {
-      result.push({
-        role: "user",
-        content: lastMessage.content,
-      });
-    }
-
     return result;
   }
 
-  async #downloadFileFromVercelBlob(fileUrl: string, outputLocationPath: string): Promise<void> {
+  async #downloadFileFromUrl(fileUrl: string, outputLocationPath: string): Promise<void> {
     if (fs.existsSync(outputLocationPath)) {
       return;
     }
