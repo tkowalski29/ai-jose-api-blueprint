@@ -1,11 +1,9 @@
 import * as fs from "fs";
 import * as path from "path";
-import * as util from "util";
 import { execFile, exec } from "child_process";
 import { ITrace } from "../trace/type";
 import { ILlm } from "./type";
 import {
-  EMessage_role,
   ITalk,
   ITalkDataResult,
   ITalkHistory,
@@ -28,21 +26,16 @@ export class BinaryLLM implements ILlm {
     chatData.conversation.question.files = await base64Prepare(chatData.conversation.question.files)
 
     try {
-      console.log("check file " + filePath)
       if (!fs.existsSync(filePath)) {
-        console.log("not exist")
         await this.#downloadFileFromUrl(chatData.llm.object.fileDownloadUrl ?? "", filePath);
-        console.log("download finish, try permision")
         await this.#setExecutablePermissions(filePath);
       }
 
-      console.log("prepare b64")
       const b64 = Buffer.from(JSON.stringify(chatData)).toString("base64");
-      console.log(b64)
-      console.log("try execute")
-      const output = await this.#executeFile(filePath, b64);
-      console.log("finish execute")
-      const out: ITalkDataResult = JSON.parse(output);
+      const res = await this.#executeFile(filePath, b64);
+
+      const output: ITalk = JSON.parse(res);
+      const out: ITalkDataResult = output.result;
 
       // this.#removeLocalFile(filePath);
 
@@ -137,14 +130,10 @@ export class BinaryLLM implements ILlm {
 
         execFile(filePath, [b64], (error: any, stdout: any, stderr: any) => {
           if (error) {
-            console.log("error")
-            console.log(error)
             reject(`Error executing file: ${error}`);
           }
 
           if (stderr !== "") {
-            console.log("stderr")
-            console.log(stderr)
             reject(`Error run file: ${stderr}`);
           }
 

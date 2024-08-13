@@ -47,6 +47,7 @@ export interface ITalk {
   };
   createdAt: string;
   result: ITalkDataResult | undefined;
+  context: any | undefined;
 }
 
 export const initData = (d: ITalk): ITalk => {
@@ -97,7 +98,7 @@ export interface ITalkDataResult {
   image:
     | {
         exist: boolean;
-        url: string[];
+        url: string[] | undefined;
       }
     | undefined;
   action:
@@ -159,7 +160,7 @@ export interface ITalkLlm {
   tokens: {
     contextWindow: number | undefined;
     maxOutput: number | undefined;
-  };
+  } | undefined;
   isLocal: boolean;
   fileDownloadUrl: string | undefined;
   fileDownloadName: string | undefined;

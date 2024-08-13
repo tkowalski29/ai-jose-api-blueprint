@@ -17,15 +17,36 @@ export const LLM_API = "api";
 export class ApiLLM implements ILlm {
   async chat(chatData: ITalk): Promise<{ stream: boolean; data: ITalkDataResult }> {
     try {
-      const response = await fetch(chatData.llm.object.fileDownloadUrl, {method: 'POST', body: JSON.stringify(chatData)});
-      const out: ITalkDataResult = await response.json();
+      console.log(`${LLM_API} - request`)
+      const response = await fetch(chatData.llm.object.fileDownloadUrl, {
+        method: 'POST',
+        body: JSON.stringify(chatData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorText}`);
+      }
+      console.log(`${LLM_API} - response`)
+      const rsp = await response.json();
 
+      if (rsp.error) {
+        throw new Error(`HTTP error! Message: ${rsp.error}`);
+      }
+
+      const output: ITalk = rsp;
+      const out: ITalkDataResult = output.result;
+  
+      console.log(`${LLM_API} - result`)
       return {
         stream: chatData.llm.stream,
         data: out,
       };
     } catch (error) {
-      console.error(error);
+      console.log(`${LLM_API} - An error occurred: ${error}`);
       throw error;
     }
   }

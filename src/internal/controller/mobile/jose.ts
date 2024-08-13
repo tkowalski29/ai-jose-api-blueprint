@@ -75,6 +75,7 @@ export const mobileJose = () => async (req: Request, res: Response) => {
       res.status(500);
       res.setHeader('Content-Type', 'application/json');
       console.error('Error processing request:', 'Unknown llm');
+      res.json({"error": "Unknown llm"});
       res.end();
       return
     }
@@ -121,6 +122,7 @@ export const mobileJose = () => async (req: Request, res: Response) => {
     res.status(500);
     res.setHeader('Content-Type', 'application/json');
     console.error('Error processing request:', error);
+    res.json({"error": error});
     res.end();
   }
 };
@@ -160,5 +162,6 @@ const parse = async (req: Request): Promise<ITalk> => {
     },
     createdAt: req.body.createdAt,
     result: req.body.result || undefined,
+    context: undefined,
   };
 };
