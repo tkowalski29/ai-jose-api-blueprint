@@ -35,7 +35,7 @@ export interface ITalk {
     type: string;
     system: string | undefined;
     question: ITalkQuestion;
-    history: ITalkHistory[];
+    history: ITalkMessage[];
   };
   assistant: {
     id: string;
@@ -76,18 +76,6 @@ export interface ITalkQuestionFile {
   path: string | undefined;
   base64: string | undefined;
   url: string | undefined;
-}
-
-export interface ITalkHistory {
-  role: EMessage_role;
-  content: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  functions?: any[];
-  functionCall?: {
-    name: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    arguments: any;
-  };
 }
 
 export interface ITalkDataResult {
@@ -164,4 +152,28 @@ export interface ITalkLlm {
   isLocal: boolean;
   fileDownloadUrl: string | undefined;
   fileDownloadName: string | undefined;
+}
+
+export interface ITalkMessage {
+  messageId: string;
+  createdAt: string;
+  updatedAt: string | undefined;
+  question: ITalkQuestion;
+  answer: ITalkDataResult | undefined;
+  conversation: string;
+  answerContent: string | undefined;
+}
+
+export interface ITalkConversation {
+  conversationId: string;
+  createdAt: string;
+  updatedAt: string | undefined;
+  summary: string | undefined;
+  title: string | undefined;
+  responseStream: boolean;
+  assistant: string;
+  assistantTitle: string;
+  assistantAvatar: string;
+  device: string | undefined;
+  userName: string | undefined;
 }

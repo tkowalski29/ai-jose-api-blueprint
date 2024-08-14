@@ -1,0 +1,426 @@
+{
+	"info": {
+		"_postman_id": "c0a07e6f-f405-4c87-bf1c-7cfbcfe9fd5f",
+		"name": "[JOSE] API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3316679"
+	},
+	"item": [
+		{
+			"name": "mobile",
+			"item": [
+				{
+					"name": "jose",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"0d557475-0ecb-4fd1-a0b5-74c76eb5c6a1\",\n    \"llm\": {\n        \"key\": \"custom_1\",\n        \"object\": {\n            \"key\": \"custom_2\",\n            \"title\": \"Custom 2\",\n            \"company\": \"api\",\n            \"model\": \"gpt-4-1106-preview\",\n            \"trainingDataTo\": null,\n            \"tokens\": null,\n            \"isLocal\": true,\n            \"fileDownloadUrl\": \"https://ai-process.vercel.app/api/talk\",\n            \"fileDownloadName\": null\n        },\n        \"temperature\": \"0.7\",\n        \"stream\": false,\n        \"outputFormat\": \"{{API_OUTPUT_FORMAT}}\"\n    },\n    \"user\": {\n        \"id\": \"test\",\n        \"name\": \"test\",\n        \"email\": \"\"\n    },\n    \"device\": {\n        \"name\": \"postman\"\n    },\n    \"conversation\": {\n        \"id\": \"929cd1ad-90ff-4e4b-8d6b-66c73a432a13\",\n        \"type\": \"assistant\",\n        \"system\": \"Tell true\",\n        \"question\": {\n            \"content\": \"Wygeneruj obrazek kury na jajkach w nocy\",\n            \"files\": []\n        },\n        \"history\": []\n    },\n    \"assistant\": {\n        \"id\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n        \"object\": {\n            \"typeCommunication\": \"external-api\",\n            \"assistantId\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n            \"title\": \"Jose\",\n            \"description\": \"Base bot\",\n            \"emoji\": \":robot:\",\n            \"avatar\": \"https://img.playbook.com/DU1GnN2UBl8wSMxFJsuMfjb_Y1i14Wsp1L3IFxF6YpY/Z3M6Ly9wbGF5Ym9v/ay1hc3NldHMtcHVi/bGljLzgyODRhMzA1/LWE3NDUtNDI3OS04/YjNiLWY1ZWEzYjU1/YzE3Mw\",\n            \"model\": \"openai__gpt-4-1106-preview\",\n            \"modelTemperature\": \"0.7\",\n            \"promptSystem\": \"Tell true\",\n            \"additionalData\": \"all, memory, image_analysis, image_generator, shopping_assistance\",\n            \"isLocal\": false\n        }\n    },\n    \"snippet\": {\n        \"id\": \"\",\n        \"object\": {}\n    },\n    \"createdAt\": \"2024-08-09 18:08:24.289084\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/api/mobile/jose",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"mobile",
+								"jose"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "basic",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"0d557475-0ecb-4fd1-a0b5-74c76eb5c6a1\",\n    \"llm\": {\n        \"key\": \"openai__gpt-4\",\n        \"object\": {\n            \"key\": \"openai__gpt-4\",\n            \"title\": \"gpt-4\",\n            \"company\": \"openai\",\n            \"model\": \"gpt-4\",\n            \"trainingDataTo\": null,\n            \"tokens\": null,\n            \"isLocal\": true,\n            \"fileDownloadUrl\": null,\n            \"fileDownloadName\": null\n        },\n        \"temperature\": \"0.7\",\n        \"stream\": false,\n        \"outputFormat\": \"{{API_OUTPUT_FORMAT}}\"\n    },\n    \"user\": {\n        \"id\": \"test\",\n        \"name\": \"test\",\n        \"email\": \"\"\n    },\n    \"device\": {\n        \"name\": \"postman\"\n    },\n    \"conversation\": {\n        \"id\": \"119344a4-0350-4d69-b397-84114fe1bf4d\",\n        \"type\": \"assistant\",\n        \"system\": \"Tell true\",\n        \"question\": {\n            \"content\": \"Hi\",\n            \"files\": []\n        },\n        \"history\": []\n    },\n    \"assistant\": {\n        \"id\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n        \"object\": {\n            \"typeCommunication\": \"external-api\",\n            \"assistantId\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n            \"title\": \"Jose\",\n            \"description\": \"Base bot\",\n            \"emoji\": \":robot:\",\n            \"avatar\": \"https://img.playbook.com/DU1GnN2UBl8wSMxFJsuMfjb_Y1i14Wsp1L3IFxF6YpY/Z3M6Ly9wbGF5Ym9v/ay1hc3NldHMtcHVi/bGljLzgyODRhMzA1/LWE3NDUtNDI3OS04/YjNiLWY1ZWEzYjU1/YzE3Mw\",\n            \"model\": \"openai__gpt-4-1106-preview\",\n            \"modelTemperature\": \"0.7\",\n            \"promptSystem\": \"Tell true\",\n            \"additionalData\": \"all, memory, image_analysis, image_generator, shopping_assistance\",\n            \"isLocal\": false\n        }\n    },\n    \"snippet\": {\n        \"id\": \"\",\n        \"object\": {}\n    },\n    \"createdAt\": \"2024-08-09 18:08:24.289084\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/api/mobile/jose",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"api",
+										"mobile",
+										"jose"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "623"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"26f-Uky1oh+Oe8AOi0zw6lMQoR2soyg\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 13 Aug 2024 07:07:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"Hello! How can I assist you today?\",\n    \"finish\": true,\n    \"createdAt\": \"2024-08-13T07:07:40.588Z\",\n    \"assistant\": {\n        \"typeCommunication\": \"external-api\",\n        \"assistantId\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n        \"title\": \"Jose\",\n        \"description\": \"Base bot\",\n        \"emoji\": \":robot:\",\n        \"avatar\": \"https://img.playbook.com/DU1GnN2UBl8wSMxFJsuMfjb_Y1i14Wsp1L3IFxF6YpY/Z3M6Ly9wbGF5Ym9v/ay1hc3NldHMtcHVi/bGljLzgyODRhMzA1/LWE3NDUtNDI3OS04/YjNiLWY1ZWEzYjU1/YzE3Mw\",\n        \"model\": \"openai__gpt-4-1106-preview\",\n        \"modelTemperature\": \"0.7\",\n        \"promptSystem\": \"Tell true\",\n        \"additionalData\": \"all, memory, image_analysis, image_generator, shopping_assistance\",\n        \"isLocal\": false\n    }\n}"
+						},
+						{
+							"name": "[API] basic",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"0d557475-0ecb-4fd1-a0b5-74c76eb5c6a1\",\n    \"llm\": {\n        \"key\": \"custom_1\",\n        \"object\": {\n            \"key\": \"custom_2\",\n            \"title\": \"Custom 2\",\n            \"company\": \"api\",\n            \"model\": \"gpt-4-1106-preview\",\n            \"trainingDataTo\": null,\n            \"tokens\": null,\n            \"isLocal\": true,\n            \"fileDownloadUrl\": \"https://isenoapi.byst.re/api/talk\",\n            \"fileDownloadName\": null\n        },\n        \"temperature\": \"0.7\",\n        \"stream\": false,\n        \"outputFormat\": \"{{API_OUTPUT_FORMAT}}\"\n    },\n    \"user\": {\n        \"id\": \"test\",\n        \"name\": \"test\",\n        \"email\": \"\"\n    },\n    \"device\": {\n        \"name\": \"postman\"\n    },\n    \"conversation\": {\n        \"id\": \"119344a4-0350-4d69-b397-84114fe1bf4d\",\n        \"type\": \"assistant\",\n        \"system\": \"Tell true\",\n        \"question\": {\n            \"content\": \"Hi\",\n            \"files\": []\n        },\n        \"history\": []\n    },\n    \"assistant\": {\n        \"id\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n        \"object\": {\n            \"typeCommunication\": \"external-api\",\n            \"assistantId\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n            \"title\": \"Jose\",\n            \"description\": \"Base bot\",\n            \"emoji\": \":robot:\",\n            \"avatar\": \"https://img.playbook.com/DU1GnN2UBl8wSMxFJsuMfjb_Y1i14Wsp1L3IFxF6YpY/Z3M6Ly9wbGF5Ym9v/ay1hc3NldHMtcHVi/bGljLzgyODRhMzA1/LWE3NDUtNDI3OS04/YjNiLWY1ZWEzYjU1/YzE3Mw\",\n            \"model\": \"openai__gpt-4-1106-preview\",\n            \"modelTemperature\": \"0.7\",\n            \"promptSystem\": \"Tell true\",\n            \"webhookUrl\": null,\n            \"additionalData\": null,\n            \"isLocal\": false\n        }\n    },\n    \"snippet\": {\n        \"id\": \"\",\n        \"object\": {}\n    },\n    \"createdAt\": \"2024-08-09 18:08:24.289084\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/api/mobile/jose",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"api",
+										"mobile",
+										"jose"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "746"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2ea-iEWU05s76IAIPA3B1iAZIvV93+A\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 13 Aug 2024 07:45:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"Hello! How can I assist you today?\",\n    \"finish\": true,\n    \"createdAt\": \"2024-08-13 07:45:00\",\n    \"assistant\": {\n        \"typeCommunication\": \"external-api\",\n        \"assistantId\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n        \"title\": \"Jose\",\n        \"description\": \"Base bot\",\n        \"emoji\": \":robot:\",\n        \"avatar\": \"https://img.playbook.com/DU1GnN2UBl8wSMxFJsuMfjb_Y1i14Wsp1L3IFxF6YpY/Z3M6Ly9wbGF5Ym9v/ay1hc3NldHMtcHVi/bGljLzgyODRhMzA1/LWE3NDUtNDI3OS04/YjNiLWY1ZWEzYjU1/YzE3Mw\",\n        \"model\": \"openai__gpt-4-1106-preview\",\n        \"modelTemperature\": \"0.7\",\n        \"promptSystem\": \"Tell true\",\n        \"webhookUrl\": null,\n        \"additionalData\": \"all, memory, image_analysis, image_generator, shopping_assistance\",\n        \"snippet\": null,\n        \"isLocal\": false,\n        \"llm\": null\n    },\n    \"image\": {\n        \"exist\": false,\n        \"url\": null\n    },\n    \"action\": {\n        \"type\": \"\",\n        \"name\": \"\",\n        \"status\": \"action\"\n    }\n}"
+						},
+						{
+							"name": "[API] audio",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"0d557475-0ecb-4fd1-a0b5-74c76eb5c6a1\",\n    \"llm\": {\n        \"key\": \"custom_1\",\n        \"object\": {\n            \"key\": \"custom_2\",\n            \"title\": \"Custom 2\",\n            \"company\": \"api\",\n            \"model\": \"gpt-4-1106-preview\",\n            \"trainingDataTo\": null,\n            \"tokens\": null,\n            \"isLocal\": true,\n            \"fileDownloadUrl\": \"https://isenoapi.byst.re/api/talk\",\n            \"fileDownloadName\": null\n        },\n        \"temperature\": \"0.7\",\n        \"stream\": false,\n        \"outputFormat\": \"{{API_OUTPUT_FORMAT}}\"\n    },\n    \"user\": {\n        \"id\": \"test\",\n        \"name\": \"test\",\n        \"email\": \"\"\n    },\n    \"device\": {\n        \"name\": \"postman\"\n    },\n    \"conversation\": {\n        \"id\": \"929cd1ad-90ff-4e4b-8d6b-66c73a432a13\",\n        \"type\": \"assistant\",\n        \"system\": \"Tell true\",\n        \"question\": {\n            \"content\": \"\",\n            \"files\": [\n                {\n                    \"type\": \"audio\",\n                    \"url\": \"https://fw9rlhiqvebf2dbp.public.blob.vercel-storage.com/demo/howManyIsTwoPlusTwo.ogg?download=1\"\n                }\n            ]\n        },\n        \"history\": []\n    },\n    \"assistant\": {\n        \"id\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n        \"object\": {\n            \"typeCommunication\": \"external-api\",\n            \"assistantId\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n            \"title\": \"Jose\",\n            \"description\": \"Base bot\",\n            \"emoji\": \":robot:\",\n            \"avatar\": \"https://img.playbook.com/DU1GnN2UBl8wSMxFJsuMfjb_Y1i14Wsp1L3IFxF6YpY/Z3M6Ly9wbGF5Ym9v/ay1hc3NldHMtcHVi/bGljLzgyODRhMzA1/LWE3NDUtNDI3OS04/YjNiLWY1ZWEzYjU1/YzE3Mw\",\n            \"model\": \"openai__gpt-4-1106-preview\",\n            \"modelTemperature\": \"0.7\",\n            \"promptSystem\": \"Tell true\",\n            \"additionalData\": \"all, memory, image_analysis, image_generator, shopping_assistance\",\n            \"isLocal\": false\n        }\n    },\n    \"snippet\": {\n        \"id\": \"\",\n        \"object\": {}\n    },\n    \"createdAt\": \"2024-08-09 18:08:24.289084\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/api/mobile/jose",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"api",
+										"mobile",
+										"jose"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "735"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2df-L18qoBd3TvnVd5x2Zo4o2GqTBtw\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 13 Aug 2024 07:53:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"2 plus 2 równa się 4.\",\n    \"finish\": true,\n    \"createdAt\": \"2024-08-13 07:53:04\",\n    \"assistant\": {\n        \"typeCommunication\": \"external-api\",\n        \"assistantId\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n        \"title\": \"Jose\",\n        \"description\": \"Base bot\",\n        \"emoji\": \":robot:\",\n        \"avatar\": \"https://img.playbook.com/DU1GnN2UBl8wSMxFJsuMfjb_Y1i14Wsp1L3IFxF6YpY/Z3M6Ly9wbGF5Ym9v/ay1hc3NldHMtcHVi/bGljLzgyODRhMzA1/LWE3NDUtNDI3OS04/YjNiLWY1ZWEzYjU1/YzE3Mw\",\n        \"model\": \"openai__gpt-4-1106-preview\",\n        \"modelTemperature\": \"0.7\",\n        \"promptSystem\": \"Tell true\",\n        \"webhookUrl\": null,\n        \"additionalData\": \"all, memory, image_analysis, image_generator, shopping_assistance\",\n        \"snippet\": null,\n        \"isLocal\": false,\n        \"llm\": null\n    },\n    \"image\": {\n        \"exist\": false,\n        \"url\": null\n    },\n    \"action\": {\n        \"type\": \"\",\n        \"name\": \"\",\n        \"status\": \"action\"\n    }\n}"
+						},
+						{
+							"name": "[API] image analize",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"0d557475-0ecb-4fd1-a0b5-74c76eb5c6a1\",\n    \"llm\": {\n        \"key\": \"custom_1\",\n        \"object\": {\n            \"key\": \"custom_2\",\n            \"title\": \"Custom 2\",\n            \"company\": \"api\",\n            \"model\": \"gpt-4-1106-preview\",\n            \"trainingDataTo\": null,\n            \"tokens\": null,\n            \"isLocal\": true,\n            \"fileDownloadUrl\": \"https://isenoapi.byst.re/api/talk\",\n            \"fileDownloadName\": null\n        },\n        \"temperature\": \"0.7\",\n        \"stream\": false,\n        \"outputFormat\": \"{{API_OUTPUT_FORMAT}}\"\n    },\n    \"user\": {\n        \"id\": \"test\",\n        \"name\": \"test\",\n        \"email\": \"\"\n    },\n    \"device\": {\n        \"name\": \"postman\"\n    },\n    \"conversation\": {\n        \"id\": \"929cd1ad-90ff-4e4b-8d6b-66c73a432a13\",\n        \"type\": \"assistant\",\n        \"system\": \"Tell true\",\n        \"question\": {\n            \"content\": \"Przeanalizuj przesłany obrazek, opisz co się na nim znajduje\",\n            \"files\": [\n                {\n                    \"type\": \"image\",\n                    \"url\": \"https://st2.depositphotos.com/5494740/8056/i/450/depositphotos_80563810-stock-photo-drinking-bull.jpg\"\n                }\n            ]\n        },\n        \"history\": []\n    },\n    \"assistant\": {\n        \"id\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n        \"object\": {\n            \"typeCommunication\": \"external-api\",\n            \"assistantId\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n            \"title\": \"Jose\",\n            \"description\": \"Base bot\",\n            \"emoji\": \":robot:\",\n            \"avatar\": \"https://img.playbook.com/DU1GnN2UBl8wSMxFJsuMfjb_Y1i14Wsp1L3IFxF6YpY/Z3M6Ly9wbGF5Ym9v/ay1hc3NldHMtcHVi/bGljLzgyODRhMzA1/LWE3NDUtNDI3OS04/YjNiLWY1ZWEzYjU1/YzE3Mw\",\n            \"model\": \"openai__gpt-4-1106-preview\",\n            \"modelTemperature\": \"0.7\",\n            \"promptSystem\": \"Tell true\",\n            \"additionalData\": \"all, memory, image_analysis, image_generator, shopping_assistance\",\n            \"isLocal\": false\n        }\n    },\n    \"snippet\": {\n        \"id\": \"\",\n        \"object\": {}\n    },\n    \"createdAt\": \"2024-08-09 18:08:24.289084\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/api/mobile/jose",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"api",
+										"mobile",
+										"jose"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1036"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"40c-JvkVXqgbxNhQubYa6ZB+qMD7Bd4\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 13 Aug 2024 07:53:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"Na przesłanym obrazku widzimy brązowo-białą krowę stojącą na plaży, tuż przy brzegu morza. Krowa ma głowę skierowaną w dół, jakby przyglądała się wodzie lub piaskowi. Fale delikatnie dotykają jej kopyt. Tło obrazu stanowi morze i niebo. Wygląda na to, że jest to ciepły, słoneczny dzień.\",\n    \"finish\": true,\n    \"createdAt\": \"2024-08-13 07:53:53\",\n    \"assistant\": {\n        \"typeCommunication\": \"external-api\",\n        \"assistantId\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n        \"title\": \"Jose\",\n        \"description\": \"Base bot\",\n        \"emoji\": \":robot:\",\n        \"avatar\": \"https://img.playbook.com/DU1GnN2UBl8wSMxFJsuMfjb_Y1i14Wsp1L3IFxF6YpY/Z3M6Ly9wbGF5Ym9v/ay1hc3NldHMtcHVi/bGljLzgyODRhMzA1/LWE3NDUtNDI3OS04/YjNiLWY1ZWEzYjU1/YzE3Mw\",\n        \"model\": \"openai__gpt-4-1106-preview\",\n        \"modelTemperature\": \"0.7\",\n        \"promptSystem\": \"Tell true\",\n        \"webhookUrl\": null,\n        \"additionalData\": \"all, memory, image_analysis, image_generator, shopping_assistance\",\n        \"snippet\": null,\n        \"isLocal\": false,\n        \"llm\": null\n    },\n    \"image\": {\n        \"exist\": false,\n        \"url\": null\n    },\n    \"action\": {\n        \"type\": \"vision\",\n        \"name\": \"success\",\n        \"status\": \"action\"\n    }\n}"
+						},
+						{
+							"name": "[API] image generate",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"0d557475-0ecb-4fd1-a0b5-74c76eb5c6a1\",\n    \"llm\": {\n        \"key\": \"custom_1\",\n        \"object\": {\n            \"key\": \"custom_2\",\n            \"title\": \"Custom 2\",\n            \"company\": \"api\",\n            \"model\": \"gpt-4-1106-preview\",\n            \"trainingDataTo\": null,\n            \"tokens\": null,\n            \"isLocal\": true,\n            \"fileDownloadUrl\": \"https://isenoapi.byst.re/api/talk\",\n            \"fileDownloadName\": null\n        },\n        \"temperature\": \"0.7\",\n        \"stream\": false,\n        \"outputFormat\": \"{{API_OUTPUT_FORMAT}}\"\n    },\n    \"user\": {\n        \"id\": \"test\",\n        \"name\": \"test\",\n        \"email\": \"\"\n    },\n    \"device\": {\n        \"name\": \"postman\"\n    },\n    \"conversation\": {\n        \"id\": \"929cd1ad-90ff-4e4b-8d6b-66c73a432a13\",\n        \"type\": \"assistant\",\n        \"system\": \"Tell true\",\n        \"question\": {\n            \"content\": \"Wygeneruj obrazek niebieskiego ptaka na tle lasu\",\n            \"files\": []\n        },\n        \"history\": []\n    },\n    \"assistant\": {\n        \"id\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n        \"object\": {\n            \"typeCommunication\": \"external-api\",\n            \"assistantId\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n            \"title\": \"Jose\",\n            \"description\": \"Base bot\",\n            \"emoji\": \":robot:\",\n            \"avatar\": \"https://img.playbook.com/DU1GnN2UBl8wSMxFJsuMfjb_Y1i14Wsp1L3IFxF6YpY/Z3M6Ly9wbGF5Ym9v/ay1hc3NldHMtcHVi/bGljLzgyODRhMzA1/LWE3NDUtNDI3OS04/YjNiLWY1ZWEzYjU1/YzE3Mw\",\n            \"model\": \"openai__gpt-4-1106-preview\",\n            \"modelTemperature\": \"0.7\",\n            \"promptSystem\": \"Tell true\",\n            \"additionalData\": \"all, memory, image_analysis, image_generator, shopping_assistance\",\n            \"isLocal\": false\n        }\n    },\n    \"snippet\": {\n        \"id\": \"\",\n        \"object\": {}\n    },\n    \"createdAt\": \"2024-08-09 18:08:24.289084\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/api/mobile/jose",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"api",
+										"mobile",
+										"jose"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1731"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 13 Aug 2024 11:57:49 GMT"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"6c3-mo1yIEWlgfQGQPEp8BlryvtzKIA\""
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"Your image has now been generated successfully, image url: https://oaidalleapiprodscus.blob.core.windows.net/private/org-ouy8i3yCPn9aekj4xGcxx3M3/user-i63RXq9ThLEKhTB1QzkoAzh7/img-BX2pfWrViNza8TNMTQ80pcsP.png?st=2024-08-13T10%3A57%3A49Z&se=2024-08-13T12%3A57%3A49Z&sp=r&sv=2023-11-03&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-08-13T07%3A19%3A14Z&ske=2024-08-14T07%3A19%3A14Z&sks=b&skv=2023-11-03&sig=12d5GRsG/xf6zhB%2B4AjfK1JgDexTONYk/IuQ0h/ij9A%3D\",\n    \"finish\": true,\n    \"createdAt\": \"2024-08-13 11:57:49\",\n    \"assistant\": {\n        \"typeCommunication\": \"external-api\",\n        \"assistantId\": \"0bb69d53-0389-49a4-a593-b75124fe25a7\",\n        \"title\": \"Jose\",\n        \"description\": \"Base bot\",\n        \"emoji\": \":robot:\",\n        \"avatar\": \"https://img.playbook.com/DU1GnN2UBl8wSMxFJsuMfjb_Y1i14Wsp1L3IFxF6YpY/Z3M6Ly9wbGF5Ym9v/ay1hc3NldHMtcHVi/bGljLzgyODRhMzA1/LWE3NDUtNDI3OS04/YjNiLWY1ZWEzYjU1/YzE3Mw\",\n        \"model\": \"openai__gpt-4-1106-preview\",\n        \"modelTemperature\": \"0.7\",\n        \"promptSystem\": \"Tell true\",\n        \"webhookUrl\": null,\n        \"additionalData\": \"all, memory, image_analysis, image_generator, shopping_assistance\",\n        \"snippet\": null,\n        \"isLocal\": false,\n        \"llm\": null\n    },\n    \"image\": {\n        \"exist\": true,\n        \"url\": [\n            \"https://oaidalleapiprodscus.blob.core.windows.net/private/org-ouy8i3yCPn9aekj4xGcxx3M3/user-i63RXq9ThLEKhTB1QzkoAzh7/img-BX2pfWrViNza8TNMTQ80pcsP.png?st=2024-08-13T10%3A57%3A49Z&se=2024-08-13T12%3A57%3A49Z&sp=r&sv=2023-11-03&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-08-13T07%3A19%3A14Z&ske=2024-08-14T07%3A19%3A14Z&sks=b&skv=2023-11-03&sig=12d5GRsG/xf6zhB%2B4AjfK1JgDexTONYk/IuQ0h/ij9A%3D\"\n        ]\n    },\n    \"action\": {\n        \"type\": \"dalle3\",\n        \"name\": \"success\",\n        \"status\": \"action\"\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

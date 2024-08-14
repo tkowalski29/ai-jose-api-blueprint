@@ -1,22 +1,42 @@
+import express from 'express';
 import dotenv from 'dotenv';
-import { initialize } from './internal/server';
-import { ping } from './internal/controller/ping';
-import { eventLocation } from './internal/controller/event/location';
-import { resourceAssistant } from './internal/controller/resource/assistant';
-import { resourceLlm } from './internal/controller/resource/llm';
-import { resourceSnippet } from './internal/controller/resource/snippet';
-import { testSse } from './internal/controller/test/sse';
-import { mobileJose } from './internal/controller/mobile/jose';
-import { raycastJose } from './internal/controller/raycast/jose';
-import { resourceSupabase } from './internal/controller/resource/supabase';
+import { ping } from './controller/ping';
+import { eventLocation } from './controller/event/location';
+import { resourceAssistant } from './controller/resource/assistant';
+import { resourceLlm } from './controller/resource/llm';
+import { resourceSnippet } from './controller/resource/snippet';
+import { testSse } from './controller/test/sse';
+import { mobileJose } from './controller/mobile/jose';
+import { raycastJose } from './controller/raycast/jose';
+import { resourceSupabase } from './controller/resource/supabase';
+import { comunicatorBotGhost } from './controller/comunicator/botGhost';
 
 dotenv.config();
+const initialize = (): express.Application => {
+  const app = express();
+
+  app.use(express.json());
+
+  app.use((req, res, next) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+      res.setHeader('Access-Control-Allow-Credentials', 'true');
+      next();
+  });
+  
+  return app;
+};
+
+
 const port = process.env.JOSE_API_PORT || 8080
 const app = initialize();
 
 app.get('/', (req, res) => {
   res.send('Start page')
 })
+
+app.post('/api/comunicator/bot-ghost', comunicatorBotGhost());
 
 app.post('/api/event/location', eventLocation());
 

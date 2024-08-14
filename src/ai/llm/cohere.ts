@@ -3,7 +3,7 @@ import { Stream } from "cohere-ai/core";
 import { Message, NonStreamedChatResponse, StreamedChatResponse } from "cohere-ai/api";
 import { ITrace } from "../trace/type";
 import { ILlm } from "./type";
-import { EMessage_role, ITalk, ITalkDataResult, ITalkHistory, ITalkQuestion, newTalkDataResult } from "../type";
+import { ITalk, ITalkDataResult, ITalkMessage, ITalkQuestion, newTalkDataResult } from "../type";
 
 export const LLM_COHERE = "cohere";
 
@@ -109,35 +109,24 @@ export class CohereLLM implements ILlm {
   #prepareMessage(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     systemMessage: string | undefined,
-    msgs: ITalkHistory[],
+    msgs: ITalkMessage[],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     lastMessage: ITalkQuestion | undefined
   ): Message[] {
     const result: Message[] = [];
 
     for (const msg of msgs) {
-      switch (msg.role) {
-        case EMessage_role.USER:
-          result.push({
-            role: "USER",
-            message: msg.content,
-          });
-          break;
-        case EMessage_role.AI:
-          result.push({
-            role: "CHATBOT",
-            message: msg.content,
-          });
-          break;
-        case EMessage_role.SYSTEM:
-          result.push({
-            role: "SYSTEM",
-            message: msg.content,
-          });
-          break;
-        case EMessage_role.FUNCTION || EMessage_role.TOOL:
-          continue;
-          break;
+      if (msg.question.content) {
+        result.push({
+          role: "USER",
+          message: msg.question.content,
+        });
+      }
+      if (msg.answer !== undefined && msg.answer.content) {
+        result.push({
+          role: "CHATBOT",
+          message: msg.answer.content,
+        });
       }
     }
 

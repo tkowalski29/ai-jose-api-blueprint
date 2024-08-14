@@ -3,7 +3,7 @@ import { Stream } from "openai/streaming";
 import { ChatCompletionChunk, ChatCompletion, ChatCompletionMessageParam } from "openai/resources";
 import { ITrace } from "../trace/type";
 import { ILlm } from "./type";
-import { EMessage_role, ITalk, ITalkDataResult, ITalkHistory, ITalkQuestion, newTalkDataResult } from "../type";
+import { ITalk, ITalkDataResult, ITalkMessage, ITalkQuestion, newTalkDataResult } from "../type";
 
 export const LLM_PERPLEXITY = "perplexity";
 
@@ -88,7 +88,7 @@ export class PerplexityLLM implements ILlm {
 
   #prepareMessage(
     systemMessage: string | undefined,
-    msgs: ITalkHistory[],
+    msgs: ITalkMessage[],
     lastMessage: ITalkQuestion | undefined
   ): ChatCompletionMessageParam[] {
     const result: ChatCompletionMessageParam[] = [];
@@ -101,28 +101,17 @@ export class PerplexityLLM implements ILlm {
     }
 
     for (const msg of msgs) {
-      switch (msg.role) {
-        case EMessage_role.USER:
-          result.push({
-            role: "user",
-            content: msg.content,
-          });
-          break;
-        case EMessage_role.AI:
-          result.push({
-            role: "assistant",
-            content: msg.content,
-          });
-          break;
-        case EMessage_role.SYSTEM:
-          result.push({
-            role: "system",
-            content: msg.content,
-          });
-          break;
-        case EMessage_role.FUNCTION || EMessage_role.TOOL:
-          continue;
-          break;
+      if (msg.question.content) {
+        result.push({
+          role: "user",
+          content: msg.question.content,
+        });
+      }
+      if (msg.answer !== undefined && msg.answer.content) {
+        result.push({
+          role: "assistant",
+          content: msg.answer.content,
+        });
       }
     }
 

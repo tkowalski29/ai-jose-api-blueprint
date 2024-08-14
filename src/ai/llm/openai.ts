@@ -1,20 +1,20 @@
-import Groq from "groq-sdk";
-import { Stream } from "groq-sdk/lib/streaming";
-import { ChatCompletion, ChatCompletionChunk, ChatCompletionMessageParam } from "groq-sdk/resources/chat/completions";
+import { OpenAI } from "openai";
+import { Stream } from "openai/streaming";
+import { ChatCompletionChunk, ChatCompletion, ChatCompletionMessageParam } from "openai/resources";
+import { ITalk, ITalkDataResult, ITalkMessage, ITalkQuestion, newTalkDataResult } from "../type";
 import { ITrace } from "../trace/type";
 import { ILlm } from "./type";
-import { EMessage_role, ITalk, ITalkDataResult, ITalkHistory, ITalkQuestion, newTalkDataResult } from "../type";
 
-export const LLM_GROQ = "groq";
+export const LLM_OPENAI = "openai";
 
-export class GroqLLM implements ILlm {
+export class OpenaiLLM implements ILlm {
   protected key: string;
-  protected llm: Groq | undefined;
-  protected defaultModel: string = "llama3-8b-8192";
+  protected llm: OpenAI | undefined;
+  protected defaultModel: string = "gpt-4o";
 
   constructor(key: string | undefined) {
     if (!key) {
-      throw new Error("Groq setting `API Key` is not defined");
+      throw new Error("OpenAi setting `API Key` is not defined");
     }
 
     this.key = key;
@@ -23,12 +23,12 @@ export class GroqLLM implements ILlm {
 
   #initialize() {
     if (this.llm === undefined) {
-      this.llm = new Groq({ apiKey: this.key });
+      this.llm = new OpenAI({ apiKey: this.key });
     }
   }
 
   async chat(chatData: ITalk): Promise<{ stream: boolean; data: Stream<ChatCompletionChunk> | ChatCompletion }> {
-    if (!this.llm) throw new Error("Groq LLM is not initialized");
+    if (!this.llm) throw new Error("OpenAi LLM is not initialized");
 
     try {
       const answer = await this.llm.chat.completions.create({
@@ -73,12 +73,6 @@ export class GroqLLM implements ILlm {
 
       if (answer.choices[0]?.finish_reason === "stop") {
         response.finish = true;
-        trace.changeHelper({
-          token: {
-            prompt: answer.x_groq.usage.prompt_tokenss || 0,
-            completion: answer.x_groq.usage.completion_tokens || 0,
-          },
-        });
       }
       actualTrace = trace.changeHelper(undefined);
       trace.changeHelper({
@@ -91,7 +85,7 @@ export class GroqLLM implements ILlm {
 
   #prepareMessage(
     systemMessage: string | undefined,
-    msgs: ITalkHistory[],
+    msgs: ITalkMessage[],
     lastMessage: ITalkQuestion | undefined
   ): ChatCompletionMessageParam[] {
     const result: ChatCompletionMessageParam[] = [];
@@ -104,28 +98,17 @@ export class GroqLLM implements ILlm {
     }
 
     for (const msg of msgs) {
-      switch (msg.role) {
-        case EMessage_role.USER:
-          result.push({
-            role: "user",
-            content: msg.content,
-          });
-          break;
-        case EMessage_role.AI:
-          result.push({
-            role: "assistant",
-            content: msg.content,
-          });
-          break;
-        case EMessage_role.SYSTEM:
-          result.push({
-            role: "system",
-            content: msg.content,
-          });
-          break;
-        case EMessage_role.FUNCTION || EMessage_role.TOOL:
-          continue;
-          break;
+      if (msg.question.content) {
+        result.push({
+          role: "user",
+          content: msg.question.content,
+        });
+      }
+      if (msg.answer !== undefined && msg.answer.content) {
+        result.push({
+          role: "assistant",
+          content: msg.answer.content,
+        });
       }
     }
 

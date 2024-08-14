@@ -6,7 +6,7 @@ import { ILlm } from "./type";
 import {
   ITalk,
   ITalkDataResult,
-  ITalkHistory,
+  ITalkMessage,
   ITalkQuestion,
   newTalkDataResult,
 } from "../type";
@@ -81,14 +81,11 @@ export class BinaryLLM implements ILlm {
 
   #prepareMessage(
     systemMessage: string | undefined,
-    msgs: ITalkHistory[],
+    msgs: ITalkMessage[],
     lastMessage: ITalkQuestion | undefined
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): any[] {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const result: any[] = [];
-
-    return result;
+    return [];
   }
 
   async #downloadFileFromUrl(fileUrl: string, outputLocationPath: string): Promise<void> {

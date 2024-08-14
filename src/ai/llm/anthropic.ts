@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { Stream } from "@anthropic-ai/sdk/streaming";
 import { RawMessageStreamEvent, Message, MessageParam } from "@anthropic-ai/sdk/resources";
-import { EMessage_role, ITalk, ITalkDataResult, ITalkHistory, ITalkQuestion, newTalkDataResult } from "../type";
+import { ITalk, ITalkDataResult, ITalkMessage, ITalkQuestion, newTalkDataResult } from "../type";
 import { ITrace } from "../trace/type";
 import { ILlm } from "./type";
 
@@ -105,28 +105,23 @@ export class AnthropicLLM implements ILlm {
   #prepareMessage(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     systemMessage: string | undefined,
-    msgs: ITalkHistory[],
+    msgs: ITalkMessage[],
     lastMessage: ITalkQuestion | undefined
   ): MessageParam[] {
     const result: MessageParam[] = [];
 
     for (const msg of msgs) {
-      switch (msg.role) {
-        case EMessage_role.USER:
-          result.push({
-            role: "user",
-            content: msg.content,
-          });
-          break;
-        case EMessage_role.AI:
-          result.push({
-            role: "assistant",
-            content: msg.content,
-          });
-          break;
-        case EMessage_role.SYSTEM || EMessage_role.FUNCTION || EMessage_role.TOOL:
-          continue;
-          break;
+      if (msg.question.content) {
+        result.push({
+          role: "user",
+          content: msg.question.content,
+        });
+      }
+      if (msg.answer !== undefined && msg.answer.content) {
+        result.push({
+          role: "assistant",
+          content: msg.answer.content,
+        });
       }
     }
 

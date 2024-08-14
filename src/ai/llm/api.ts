@@ -1,10 +1,9 @@
 import { ITrace } from "../trace/type";
 import { ILlm } from "./type";
 import {
-  EMessage_role,
   ITalk,
   ITalkDataResult,
-  ITalkHistory,
+  ITalkMessage,
   ITalkQuestion,
   newTalkDataResult,
 } from "../type";
@@ -83,53 +82,10 @@ export class ApiLLM implements ILlm {
 
   #prepareMessage(
     systemMessage: string | undefined,
-    msgs: ITalkHistory[],
+    msgs: ITalkMessage[],
     lastMessage: ITalkQuestion | undefined
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): any[] {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const result: any[] = [];
-
-    if (systemMessage) {
-      result.push({
-        role: "system",
-        content: systemMessage,
-      });
-    }
-
-    for (const msg of msgs) {
-      switch (msg.role) {
-        case EMessage_role.USER:
-          result.push({
-            role: "user",
-            content: msg.content,
-          });
-          break;
-        case EMessage_role.AI:
-          result.push({
-            role: "assistant",
-            content: msg.content,
-          });
-          break;
-        case EMessage_role.SYSTEM:
-          result.push({
-            role: "system",
-            content: msg.content,
-          });
-          break;
-        case EMessage_role.FUNCTION || EMessage_role.TOOL:
-          continue;
-          break;
-      }
-    }
-
-    if (lastMessage) {
-      result.push({
-        role: "user",
-        content: lastMessage.content,
-      });
-    }
-
-    return result;
+    return [];
   }
 }
