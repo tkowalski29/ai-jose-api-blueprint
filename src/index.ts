@@ -9,7 +9,7 @@ import { testSse } from './controller/test/sse';
 import { mobileJose } from './controller/mobile/jose';
 import { raycastJose } from './controller/raycast/jose';
 import { resourceSupabase } from './controller/resource/supabase';
-import { comunicatorBotGhost } from './controller/comunicator/botGhost';
+import { botGhostJose } from './controller/botGhost/jose';
 
 dotenv.config();
 const initialize = (): express.Application => {
@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
   res.send('Start page')
 })
 
-app.post('/api/comunicator/bot-ghost', comunicatorBotGhost());
+app.post('/api/bot-ghost/jose', botGhostJose());
 
 app.post('/api/event/location', eventLocation());
 

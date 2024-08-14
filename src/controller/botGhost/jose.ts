@@ -15,7 +15,7 @@ import { LLM_API, ApiLLM } from "../../ai/llm/api";
 import { fetchOneAssistant, fetchOneConversation, fetchOneLlm } from "../../supabase/fetchOne";
 import { fetchAllMessage } from "../../supabase/fetchAll";
 
-export const comunicatorBotGhost = () => async (req: Request, res: Response) => {
+export const botGhostJose = () => async (req: Request, res: Response) => {
   const chatData = await parse(req);
 
   let langFuseTrace = undefined;
