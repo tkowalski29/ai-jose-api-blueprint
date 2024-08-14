@@ -122,10 +122,10 @@ export class CohereLLM implements ILlm {
           message: msg.question.content,
         });
       }
-      if (msg.answer !== undefined && msg.answer.content) {
+      if (msg.answer !== undefined && msg.answerContent) {
         result.push({
           role: "CHATBOT",
-          message: msg.answer.content,
+          message: msg.answerContent,
         });
       }
     }

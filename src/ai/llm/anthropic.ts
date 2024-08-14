@@ -117,10 +117,10 @@ export class AnthropicLLM implements ILlm {
           content: msg.question.content,
         });
       }
-      if (msg.answer !== undefined && msg.answer.content) {
+      if (msg.answer !== undefined && msg.answerContent) {
         result.push({
           role: "assistant",
-          content: msg.answer.content,
+          content: msg.answerContent,
         });
       }
     }
