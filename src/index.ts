@@ -28,7 +28,6 @@ const initialize = (): express.Application => {
   return app;
 };
 
-
 const port = process.env.JOSE_API_PORT || 8080
 const app = initialize();
 
