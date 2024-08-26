@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { ITalkQuestionFile } from "../../ai/type";
+import { ITalkQuestionFile } from "../data/talk";
 
 export const base64Prepare = async (files: ITalkQuestionFile[] | undefined): Promise<ITalkQuestionFile[]> => {
   if (files !== undefined) {

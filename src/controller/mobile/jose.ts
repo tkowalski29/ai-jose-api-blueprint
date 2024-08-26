@@ -1,5 +1,4 @@
 import type { Request, Response} from "express";
-import { ILlm } from "../../ai/llm/type";
 import { AnthropicLLM, LLM_ANTHROPIC } from "../../ai/llm/anthropic";
 import { CohereLLM, LLM_COHERE } from "../../ai/llm/cohere";
 import { GroqLLM, LLM_GROQ } from "../../ai/llm/groq";
@@ -8,10 +7,11 @@ import { LLM_OPENAI, OpenaiLLM } from "../../ai/llm/openai";
 import { LLM_PERPLEXITY, PerplexityLLM } from "../../ai/llm/perplexity";
 import { LangFuseTrace } from "../../ai/trace/langfuse";
 import { LunaryTrace } from "../../ai/trace/lunary";
-import { ITalk } from "../../ai/type";
 import { Trace } from "../../ai/trace/trace";
 import { LLM_BINARY, BinaryLLM } from "../../ai/llm/binary";
 import { LLM_API, ApiLLM } from "../../ai/llm/api";
+import { ITalk } from "../../ai/data/talk";
+import { InterfaceLlm } from "../../ai/data/llm";
 
 export const mobileJose = () => async (req: Request, res: Response) => {
   const chatData = await parse(req);
@@ -37,7 +37,7 @@ export const mobileJose = () => async (req: Request, res: Response) => {
     const trace = new Trace();
     trace.init(langFuseTrace, lunaryTrace);
     trace.start(chatData, [`llm:${chatData.llm.object.company}`, `model:${chatData.llm.object.model}`, `stream:${chatData.llm.stream}`]);
-    let llm: ILlm | undefined = undefined
+    let llm: InterfaceLlm | undefined = undefined
 
     trace.llmStart(chatData);
     switch (chatData.llm.object.company) {
@@ -149,6 +149,7 @@ const parse = async (req: Request): Promise<ITalk> => {
       id: req.body.conversation.id,
       type: req.body.conversation.type,
       system: req.body.conversation.system || undefined,
+      schema: req.body.conversation.schema || undefined,
       question: req.body.conversation.question,
       history: req.body.conversation.history,
     },

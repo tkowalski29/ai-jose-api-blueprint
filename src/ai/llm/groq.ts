@@ -1,13 +1,14 @@
 import Groq from "groq-sdk";
 import { Stream } from "groq-sdk/lib/streaming";
 import { ChatCompletion, ChatCompletionChunk, ChatCompletionMessageParam } from "groq-sdk/resources/chat/completions";
-import { ITrace } from "../trace/type";
-import { ILlm } from "./type";
-import { ITalk, ITalkDataResult, ITalkMessage, ITalkQuestion, newTalkDataResult } from "../type";
+import { ITalk, ITalkDataResult, ITalkQuestion, newTalkDataResult } from "../data/talk";
+import { InterfaceLlm } from "../data/llm";
+import { ITrace } from "../data/trace";
+import { IMessage } from "../data/message";
 
 export const LLM_GROQ = "groq";
 
-export class GroqLLM implements ILlm {
+export class GroqLLM implements InterfaceLlm {
   protected key: string;
   protected llm: Groq | undefined;
   protected defaultModel: string = "llama3-8b-8192";
@@ -91,7 +92,7 @@ export class GroqLLM implements ILlm {
 
   #prepareMessage(
     systemMessage: string | undefined,
-    msgs: ITalkMessage[],
+    msgs: IMessage[],
     lastMessage: ITalkQuestion | undefined
   ): ChatCompletionMessageParam[] {
     const result: ChatCompletionMessageParam[] = [];

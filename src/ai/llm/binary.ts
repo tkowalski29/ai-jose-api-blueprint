@@ -1,23 +1,18 @@
 import * as fs from "fs";
 import * as path from "path";
 import { execFile, exec } from "child_process";
-import { ITrace } from "../trace/type";
-import { ILlm } from "./type";
-import {
-  ITalk,
-  ITalkDataResult,
-  ITalkMessage,
-  ITalkQuestion,
-  newTalkDataResult,
-} from "../type";
 import fetch from "node-fetch";
-import { base64Prepare } from "../helper/file";
 // @ts-expect-error ignore
 globalThis.fetch = fetch;
+import { ITalk, ITalkDataResult, ITalkQuestion, newTalkDataResult } from "../data/talk";
+import { InterfaceLlm } from "../data/llm";
+import { ITrace } from "../data/trace";
+import { IMessage } from "../data/message";
+import { base64Prepare } from "../common/file";
 
 export const LLM_BINARY = "binary";
 
-export class BinaryLLM implements ILlm {
+export class BinaryLLM implements InterfaceLlm {
   async chat(chatData: ITalk): Promise<{ stream: boolean; data: ITalkDataResult }> {
     // const dir = "/tmp"
     const dir = __dirname
@@ -81,7 +76,7 @@ export class BinaryLLM implements ILlm {
 
   #prepareMessage(
     systemMessage: string | undefined,
-    msgs: ITalkMessage[],
+    msgs: IMessage[],
     lastMessage: ITalkQuestion | undefined
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): any[] {

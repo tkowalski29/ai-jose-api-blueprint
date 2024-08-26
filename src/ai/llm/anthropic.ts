@@ -1,13 +1,14 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { Stream } from "@anthropic-ai/sdk/streaming";
 import { RawMessageStreamEvent, Message, MessageParam } from "@anthropic-ai/sdk/resources";
-import { ITalk, ITalkDataResult, ITalkMessage, ITalkQuestion, newTalkDataResult } from "../type";
-import { ITrace } from "../trace/type";
-import { ILlm } from "./type";
+import { ITalk, ITalkDataResult, ITalkQuestion, newTalkDataResult } from "../data/talk";
+import { InterfaceLlm } from "../data/llm";
+import { ITrace } from "../data/trace";
+import { IMessage } from "../data/message";
 
 export const LLM_ANTHROPIC = "anthropic";
 
-export class AnthropicLLM implements ILlm {
+export class AnthropicLLM implements InterfaceLlm {
   protected key: string;
   protected llm: Anthropic | undefined;
   protected defaultModel: string = "claude-3-opus-20240229";
@@ -105,7 +106,7 @@ export class AnthropicLLM implements ILlm {
   #prepareMessage(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     systemMessage: string | undefined,
-    msgs: ITalkMessage[],
+    msgs: IMessage[],
     lastMessage: ITalkQuestion | undefined
   ): MessageParam[] {
     const result: MessageParam[] = [];

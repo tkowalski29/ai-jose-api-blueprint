@@ -1,6 +1,6 @@
 import lunary from "lunary";
-import { ITalk } from "../type";
-import { ITraceHelper, newTraceHelper } from "./type";
+import { ITraceHelper, newTraceHelper } from "../data/trace";
+import { ITalk } from "../data/talk";
 
 export const TRACE_LUNARY = "lunary";
 

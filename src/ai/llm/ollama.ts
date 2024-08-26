@@ -1,14 +1,15 @@
 import { Ollama, Message, ChatResponse } from "ollama";
-import { ITalk, ITalkDataResult, ITalkMessage, ITalkQuestion, newTalkDataResult } from "../type";
-import { ITrace } from "../trace/type";
-import { ILlm } from "./type";
 import fetch from "node-fetch";
 // @ts-expect-error ignore
 globalThis.fetch = fetch;
+import { ITalk, ITalkDataResult, ITalkQuestion, newTalkDataResult } from "../data/talk";
+import { InterfaceLlm } from "../data/llm";
+import { ITrace } from "../data/trace";
+import { IMessage } from "../data/message";
 
 export const LLM_OLLAMA = "ollama";
 
-export class OllamaLLM implements ILlm {
+export class OllamaLLM implements InterfaceLlm {
   protected host: string;
   protected llm: Ollama | undefined;
   protected defaultModel: string = "llama3";
@@ -94,7 +95,7 @@ export class OllamaLLM implements ILlm {
 
   #prepareMessage(
     systemMessage: string | undefined,
-    msgs: ITalkMessage[],
+    msgs: IMessage[],
     lastMessage: ITalkQuestion | undefined
   ): Message[] {
     const result: Message[] = [];

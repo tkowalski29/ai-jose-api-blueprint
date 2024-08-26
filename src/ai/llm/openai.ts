@@ -1,13 +1,14 @@
 import { OpenAI } from "openai";
 import { Stream } from "openai/streaming";
 import { ChatCompletionChunk, ChatCompletion, ChatCompletionMessageParam } from "openai/resources";
-import { ITalk, ITalkDataResult, ITalkMessage, ITalkQuestion, newTalkDataResult } from "../type";
-import { ITrace } from "../trace/type";
-import { ILlm } from "./type";
+import { ITalk, ITalkDataResult, ITalkQuestion, newTalkDataResult } from "../data/talk";
+import { InterfaceLlm } from "../data/llm";
+import { ITrace } from "../data/trace";
+import { IMessage } from "../data/message";
 
 export const LLM_OPENAI = "openai";
 
-export class OpenaiLLM implements ILlm {
+export class OpenaiLLM implements InterfaceLlm {
   protected key: string;
   protected llm: OpenAI | undefined;
   protected defaultModel: string = "gpt-4o";
@@ -85,7 +86,7 @@ export class OpenaiLLM implements ILlm {
 
   #prepareMessage(
     systemMessage: string | undefined,
-    msgs: ITalkMessage[],
+    msgs: IMessage[],
     lastMessage: ITalkQuestion | undefined
   ): ChatCompletionMessageParam[] {
     const result: ChatCompletionMessageParam[] = [];

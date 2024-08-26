@@ -1,13 +1,14 @@
 import { CohereClient } from "cohere-ai";
 import { Stream } from "cohere-ai/core";
 import { Message, NonStreamedChatResponse, StreamedChatResponse } from "cohere-ai/api";
-import { ITrace } from "../trace/type";
-import { ILlm } from "./type";
-import { ITalk, ITalkDataResult, ITalkMessage, ITalkQuestion, newTalkDataResult } from "../type";
+import { ITalk, ITalkDataResult, ITalkQuestion, newTalkDataResult } from "../data/talk";
+import { InterfaceLlm } from "../data/llm";
+import { ITrace } from "../data/trace";
+import { IMessage } from "../data/message";
 
 export const LLM_COHERE = "cohere";
 
-export class CohereLLM implements ILlm {
+export class CohereLLM implements InterfaceLlm {
   protected key: string;
   protected llm: CohereClient | undefined;
   protected defaultModel: string = "command";
@@ -109,7 +110,7 @@ export class CohereLLM implements ILlm {
   #prepareMessage(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     systemMessage: string | undefined,
-    msgs: ITalkMessage[],
+    msgs: IMessage[],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     lastMessage: ITalkQuestion | undefined
   ): Message[] {

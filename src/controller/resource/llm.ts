@@ -1,5 +1,5 @@
 import type { Request, Response} from "express";
-import { ITalkLlm } from "../../ai/type";
+import { ILlm } from "../../ai/data/llm";
 
 export const resourceLlm = () => async (req: Request, res: Response) => {
   res.status(200);
@@ -14,7 +14,7 @@ export const resourceLlm = () => async (req: Request, res: Response) => {
   res.end();
 };
 
-const dataAnthropic: ITalkLlm[] = [
+const dataAnthropic: ILlm[] = [
   {
     key: "anthropic__claude-3-5-sonnet-20240620",
     title: "claude-3-5-sonnet-20240620",
@@ -22,8 +22,8 @@ const dataAnthropic: ITalkLlm[] = [
     model: "claude-3-5-sonnet-20240620",
     trainingDataTo: "04.2024",
     tokens: {
-      contextWindow: 200000,
-      maxOutput: 8192,
+      contextWindow: "200000",
+      maxOutput: "8192",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -36,8 +36,8 @@ const dataAnthropic: ITalkLlm[] = [
     model: "claude-3-opus-20240229",
     trainingDataTo: "08.2023",
     tokens: {
-      contextWindow: 200000,
-      maxOutput: 4096,
+      contextWindow: "200000",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -50,8 +50,8 @@ const dataAnthropic: ITalkLlm[] = [
     model: "claude-3-sonnet-20240229",
     trainingDataTo: "08.2023",
     tokens: {
-      contextWindow: 200000,
-      maxOutput: 4096,
+      contextWindow: "200000",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -64,15 +64,15 @@ const dataAnthropic: ITalkLlm[] = [
     model: "claude-3-haiku-20240307",
     trainingDataTo: "08.2023",
     tokens: {
-      contextWindow: 200000,
-      maxOutput: 4096,
+      contextWindow: "200000",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
     fileDownloadName: undefined,
   },
 ]
-const dataCohere: ITalkLlm[] = [
+const dataCohere: ILlm[] = [
   {
     key: "cohere__command-r-plus",
     title: "command-r-plus",
@@ -80,8 +80,8 @@ const dataCohere: ITalkLlm[] = [
     model: "command-r-plus",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 128000,
-      maxOutput: 4096,
+      contextWindow: "128000",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -94,8 +94,8 @@ const dataCohere: ITalkLlm[] = [
     model: "command-r",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 128000,
-      maxOutput: 4096,
+      contextWindow: "128000",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -108,8 +108,8 @@ const dataCohere: ITalkLlm[] = [
     model: "command",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 4096,
-      maxOutput: 4096,
+      contextWindow: "4096",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -122,8 +122,8 @@ const dataCohere: ITalkLlm[] = [
     model: "command-nightly",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 128000,
-      maxOutput: 128000,
+      contextWindow: "128000",
+      maxOutput: "128000",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -136,8 +136,8 @@ const dataCohere: ITalkLlm[] = [
     model: "command-light",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 4096,
-      maxOutput: 4096,
+      contextWindow: "4096",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -150,15 +150,15 @@ const dataCohere: ITalkLlm[] = [
     model: "command-light-nightly",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 4096,
-      maxOutput: 4096,
+      contextWindow: "4096",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
     fileDownloadName: undefined,
   },
 ]
-const dataGroq: ITalkLlm[] = [
+const dataGroq: ILlm[] = [
   {
     key: "groq__llama-3.1-405b-reasoning",
     title: "llama-3.1-405b-reasoning",
@@ -166,7 +166,7 @@ const dataGroq: ITalkLlm[] = [
     model: "llama-3.1-405b-reasoning",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 131072,
+      contextWindow: "131072",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -180,7 +180,7 @@ const dataGroq: ITalkLlm[] = [
     model: "llama-3.1-70b-versatile",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 131072,
+      contextWindow: "131072",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -194,7 +194,7 @@ const dataGroq: ITalkLlm[] = [
     model: "llama-3.1-8b-instant",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 131072,
+      contextWindow: "131072",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -208,7 +208,7 @@ const dataGroq: ITalkLlm[] = [
     model: "llama3-groq-70b-8192-tool-use-preview",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 8192,
+      contextWindow: "8192",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -222,7 +222,7 @@ const dataGroq: ITalkLlm[] = [
     model: "llama3-groq-8b-8192-tool-use-preview",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 8192,
+      contextWindow: "8192",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -236,7 +236,7 @@ const dataGroq: ITalkLlm[] = [
     model: "llama3-70b-8192",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 8192,
+      contextWindow: "8192",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -250,7 +250,7 @@ const dataGroq: ITalkLlm[] = [
     model: "llama3-8b-8192",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 8192,
+      contextWindow: "8192",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -264,7 +264,7 @@ const dataGroq: ITalkLlm[] = [
     model: "mixtral-8x7b-32768",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 32768,
+      contextWindow: "32768",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -278,7 +278,7 @@ const dataGroq: ITalkLlm[] = [
     model: "gemma-7b-it",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 8192,
+      contextWindow: "8192",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -292,7 +292,7 @@ const dataGroq: ITalkLlm[] = [
     model: "gemma2-9b-it",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 8192,
+      contextWindow: "8192",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -300,7 +300,7 @@ const dataGroq: ITalkLlm[] = [
     fileDownloadName: undefined,
   },
 ]
-const dataOllama: ITalkLlm[] = [
+const dataOllama: ILlm[] = [
   {
     key: "ollama__llama3.1",
     title: "llama3.1",
@@ -344,7 +344,7 @@ const dataOllama: ITalkLlm[] = [
     fileDownloadName: undefined,
   },
 ]
-const dataOpenai: ITalkLlm[] = [
+const dataOpenai: ILlm[] = [
   {
     key: "openai__gpt-4o-mini",
     title: "gpt-4o-mini",
@@ -352,8 +352,8 @@ const dataOpenai: ITalkLlm[] = [
     model: "gpt-4o-mini",
     trainingDataTo: "10.2023",
     tokens: {
-      contextWindow: 128000,
-      maxOutput: 16384,
+      contextWindow: "128000",
+      maxOutput: "16384",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -366,8 +366,8 @@ const dataOpenai: ITalkLlm[] = [
     model: "gpt-4o-mini-2024-07-18",
     trainingDataTo: "10.2023",
     tokens: {
-      contextWindow: 128000,
-      maxOutput: 16384,
+      contextWindow: "128000",
+      maxOutput: "16384",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -380,8 +380,8 @@ const dataOpenai: ITalkLlm[] = [
     model: "gpt-4o-2024-05-13",
     trainingDataTo: "10.2023",
     tokens: {
-      contextWindow: 128000,
-      maxOutput: 4096,
+      contextWindow: "128000",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -394,8 +394,8 @@ const dataOpenai: ITalkLlm[] = [
     model: "gpt-4o",
     trainingDataTo: "10.2023",
     tokens: {
-      contextWindow: 128000,
-      maxOutput: 4096,
+      contextWindow: "128000",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -408,8 +408,8 @@ const dataOpenai: ITalkLlm[] = [
     model: "gpt-4-turbo-2024-04-09",
     trainingDataTo: "12.2023",
     tokens: {
-      contextWindow: 128000,
-      maxOutput: 4096,
+      contextWindow: "128000",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -422,8 +422,8 @@ const dataOpenai: ITalkLlm[] = [
     model: "gpt-4-turbo",
     trainingDataTo: "12.2023",
     tokens: {
-      contextWindow: 128000,
-      maxOutput: 4096,
+      contextWindow: "128000",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -436,8 +436,8 @@ const dataOpenai: ITalkLlm[] = [
     model: "gpt-4-turbo-preview",
     trainingDataTo: "12.2023",
     tokens: {
-      contextWindow: 128000,
-      maxOutput: 4096,
+      contextWindow: "128000",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -450,8 +450,8 @@ const dataOpenai: ITalkLlm[] = [
     model: "gpt-4-1106-preview",
     trainingDataTo: "04.2023",
     tokens: {
-      contextWindow: 128000,
-      maxOutput: 4096,
+      contextWindow: "128000",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -464,8 +464,8 @@ const dataOpenai: ITalkLlm[] = [
     model: "gpt-4",
     trainingDataTo: "09.2021",
     tokens: {
-      contextWindow: 8192,
-      maxOutput: 8192,
+      contextWindow: "8192",
+      maxOutput: "8192",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -478,8 +478,8 @@ const dataOpenai: ITalkLlm[] = [
     model: "gpt-4-0613",
     trainingDataTo: "09.2021",
     tokens: {
-      contextWindow: 8192,
-      maxOutput: 8192,
+      contextWindow: "8192",
+      maxOutput: "8192",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -492,8 +492,8 @@ const dataOpenai: ITalkLlm[] = [
     model: "gpt-3.5-turbo-0125",
     trainingDataTo: "09.2021",
     tokens: {
-      contextWindow: 16385,
-      maxOutput: 4096,
+      contextWindow: "16385",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -506,8 +506,8 @@ const dataOpenai: ITalkLlm[] = [
     model: "gpt-3.5-turbo-1106",
     trainingDataTo: "09.2021",
     tokens: {
-      contextWindow: 16385,
-      maxOutput: 4096,
+      contextWindow: "16385",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -520,8 +520,8 @@ const dataOpenai: ITalkLlm[] = [
     model: "gpt-3.5-turbo-0613",
     trainingDataTo: "09.2021",
     tokens: {
-      contextWindow: 16385,
-      maxOutput: 4096,
+      contextWindow: "16385",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
@@ -534,15 +534,15 @@ const dataOpenai: ITalkLlm[] = [
     model: "gpt-3.5-turbo",
     trainingDataTo: "09.2021",
     tokens: {
-      contextWindow: 16385,
-      maxOutput: 4096,
+      contextWindow: "16385",
+      maxOutput: "4096",
     },
     isLocal: false,
     fileDownloadUrl: undefined,
     fileDownloadName: undefined,
   },
 ]
-const dataPerplexity: ITalkLlm[] = [
+const dataPerplexity: ILlm[] = [
   {
     key: "perplexity__llama-3-sonar-small-32k-online",
     title: "llama-3-sonar-small-32k-online",
@@ -550,7 +550,7 @@ const dataPerplexity: ITalkLlm[] = [
     model: "llama-3-sonar-small-32k-online",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 28000,
+      contextWindow: "28000",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -564,7 +564,7 @@ const dataPerplexity: ITalkLlm[] = [
     model: "llama-3-sonar-small-32k-chat",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 32768,
+      contextWindow: "32768",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -578,7 +578,7 @@ const dataPerplexity: ITalkLlm[] = [
     model: "llama-3-sonar-large-32k-online",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 28000,
+      contextWindow: "28000",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -592,7 +592,7 @@ const dataPerplexity: ITalkLlm[] = [
     model: "llama-3-sonar-large-32k-chat",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 32768,
+      contextWindow: "32768",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -606,7 +606,7 @@ const dataPerplexity: ITalkLlm[] = [
     model: "llama-3.1-sonar-small-128k-online",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 127072,
+      contextWindow: "127072",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -620,7 +620,7 @@ const dataPerplexity: ITalkLlm[] = [
     model: "llama-3.1-sonar-small-128k-chat",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 131072,
+      contextWindow: "131072",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -634,7 +634,7 @@ const dataPerplexity: ITalkLlm[] = [
     model: "llama-3.1-sonar-large-128k-online",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 127072,
+      contextWindow: "127072",
       maxOutput: undefined,
     },
     isLocal: false,
@@ -648,7 +648,7 @@ const dataPerplexity: ITalkLlm[] = [
     model: "llama-3.1-sonar-large-128k-chat",
     trainingDataTo: undefined,
     tokens: {
-      contextWindow: 131072,
+      contextWindow: "131072",
       maxOutput: undefined,
     },
     isLocal: false,

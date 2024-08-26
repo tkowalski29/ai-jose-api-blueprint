@@ -1,5 +1,5 @@
 import type { Request, Response} from "express";
-import { ITalkAssistant } from "../../ai/type";
+import { IAssistant } from "../../ai/data/assistant";
 
 export const resourceAssistant = () => async (req: Request, res: Response) => {
   res.status(200);
@@ -7,7 +7,7 @@ export const resourceAssistant = () => async (req: Request, res: Response) => {
   res.end();
 };
 
-const data: ITalkAssistant[] = [
+const data: IAssistant[] = [
   {
     typeCommunication: "local",
     assistantId: "1",

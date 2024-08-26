@@ -1,13 +1,14 @@
 import { OpenAI } from "openai";
 import { Stream } from "openai/streaming";
 import { ChatCompletionChunk, ChatCompletion, ChatCompletionMessageParam } from "openai/resources";
-import { ITrace } from "../trace/type";
-import { ILlm } from "./type";
-import { ITalk, ITalkDataResult, ITalkMessage, ITalkQuestion, newTalkDataResult } from "../type";
+import { ITalk, ITalkDataResult, ITalkQuestion, newTalkDataResult } from "../data/talk";
+import { InterfaceLlm } from "../data/llm";
+import { ITrace } from "../data/trace";
+import { IMessage } from "../data/message";
 
 export const LLM_PERPLEXITY = "perplexity";
 
-export class PerplexityLLM implements ILlm {
+export class PerplexityLLM implements InterfaceLlm {
   protected key: string;
   protected llm: OpenAI | undefined;
   protected defaultModel: string = "llama-3-sonar-small-32k-online";
@@ -88,7 +89,7 @@ export class PerplexityLLM implements ILlm {
 
   #prepareMessage(
     systemMessage: string | undefined,
-    msgs: ITalkMessage[],
+    msgs: IMessage[],
     lastMessage: ITalkQuestion | undefined
   ): ChatCompletionMessageParam[] {
     const result: ChatCompletionMessageParam[] = [];

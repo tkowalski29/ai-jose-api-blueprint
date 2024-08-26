@@ -1,19 +1,14 @@
-import { ITrace } from "../trace/type";
-import { ILlm } from "./type";
-import {
-  ITalk,
-  ITalkDataResult,
-  ITalkMessage,
-  ITalkQuestion,
-  newTalkDataResult,
-} from "../type";
 import fetch from "node-fetch";
 // @ts-expect-error ignore
 globalThis.fetch = fetch;
+import { ITalk, ITalkDataResult, ITalkQuestion, newTalkDataResult } from "../data/talk";
+import { InterfaceLlm } from "../data/llm";
+import { ITrace } from "../data/trace";
+import { IMessage } from "../data/message";
 
 export const LLM_API = "api";
 
-export class ApiLLM implements ILlm {
+export class ApiLLM implements InterfaceLlm {
   async chat(chatData: ITalk): Promise<{ stream: boolean; data: ITalkDataResult }> {
     try {
       console.log(`${LLM_API} - request`)
@@ -82,7 +77,7 @@ export class ApiLLM implements ILlm {
 
   #prepareMessage(
     systemMessage: string | undefined,
-    msgs: ITalkMessage[],
+    msgs: IMessage[],
     lastMessage: ITalkQuestion | undefined
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): any[] {
