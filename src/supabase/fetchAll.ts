@@ -1,5 +1,5 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { IMessage } from '../ai/data/message';
+import { IMessage } from '../data/message';
 
 export const fetchAll = async (tableName: string): Promise<any> => {
   const supabase: SupabaseClient = createClient(process.env.JOSE_API_SUPABASE_URL, process.env.JOSE_API_SUPABASE_KEY);

@@ -1,5 +1,5 @@
 import type { Request, Response} from "express";
-import { IAssistant } from "../../ai/data/assistant";
+import { IAssistant } from "../../data/assistant";
 
 export const resourceAssistant = () => async (req: Request, res: Response) => {
   res.status(200);

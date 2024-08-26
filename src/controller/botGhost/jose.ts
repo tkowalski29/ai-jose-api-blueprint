@@ -1,22 +1,22 @@
 import type { Request, Response} from "express";
-import { AnthropicLLM, LLM_ANTHROPIC } from "../../ai/llm/anthropic";
-import { CohereLLM, LLM_COHERE } from "../../ai/llm/cohere";
-import { GroqLLM, LLM_GROQ } from "../../ai/llm/groq";
-import { LLM_OLLAMA, OllamaLLM } from "../../ai/llm/ollama";
-import { LLM_OPENAI, OpenaiLLM } from "../../ai/llm/openai";
-import { LLM_PERPLEXITY, PerplexityLLM } from "../../ai/llm/perplexity";
-import { LangFuseTrace } from "../../ai/trace/langfuse";
-import { LunaryTrace } from "../../ai/trace/lunary";
-import { Trace } from "../../ai/trace/trace";
-import { LLM_BINARY, BinaryLLM } from "../../ai/llm/binary";
-import { LLM_API, ApiLLM } from "../../ai/llm/api";
+import { AnthropicLLM, LLM_ANTHROPIC } from "../../llm/anthropic";
+import { CohereLLM, LLM_COHERE } from "../../llm/cohere";
+import { GroqLLM, LLM_GROQ } from "../../llm/groq";
+import { LLM_OLLAMA, OllamaLLM } from "../../llm/ollama";
+import { LLM_OPENAI, OpenaiLLM } from "../../llm/openai";
+import { LLM_PERPLEXITY, PerplexityLLM } from "../../llm/perplexity";
+import { LangFuseTrace } from "../../trace/langfuse";
+import { LunaryTrace } from "../../trace/lunary";
+import { Trace } from "../../trace/trace";
+import { LLM_BINARY, BinaryLLM } from "../../llm/binary";
+import { LLM_API, ApiLLM } from "../../llm/api";
 import { fetchOneAssistant, fetchOneConversation, fetchOneLlm } from "../../supabase/fetchOne";
 import { fetchAllMessage } from "../../supabase/fetchAll";
-import { ITalk, ITalkQuestion, ITalkQuestionFile } from "../../ai/data/talk";
-import { IConversation } from "../../ai/data/conversation";
-import { IAssistant } from "../../ai/data/assistant";
-import { ILlm, InterfaceLlm } from "../../ai/data/llm";
-import { IMessage } from "../../ai/data/message";
+import { ITalk, ITalkQuestion, ITalkQuestionFile } from "../../data/talk";
+import { IConversation } from "../../data/conversation";
+import { IAssistant } from "../../data/assistant";
+import { ILlm, InterfaceLlm } from "../../data/llm";
+import { IMessage } from "../../data/message";
 
 export const botGhostJose = () => async (req: Request, res: Response) => {
   const chatData = await parse(req);

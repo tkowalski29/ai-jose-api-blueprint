@@ -1,5 +1,5 @@
 import type { Request, Response} from "express";
-import { ISnippet } from "../../ai/data/snippet";
+import { ISnippet } from "../../data/snippet";
 
 export const resourceSnippet = () => async (req: Request, res: Response) => {
   res.status(200);

@@ -1,5 +1,5 @@
 import type { Request, Response} from "express";
-import { ILlm } from "../../ai/data/llm";
+import { ILlm } from "../../data/llm";
 
 export const resourceLlm = () => async (req: Request, res: Response) => {
   res.status(200);

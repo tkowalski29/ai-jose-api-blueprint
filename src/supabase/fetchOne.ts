@@ -1,7 +1,7 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { IAssistant } from '../ai/data/assistant';
-import { IConversation } from '../ai/data/conversation';
-import { ILlm } from '../ai/data/llm';
+import { IAssistant } from '../data/assistant';
+import { IConversation } from '../data/conversation';
+import { ILlm } from '../data/llm';
 
 export const fetchOneConversation = async (id: string): Promise<IConversation> => {
   const supabase: SupabaseClient = createClient(process.env.JOSE_API_SUPABASE_URL, process.env.JOSE_API_SUPABASE_KEY);
