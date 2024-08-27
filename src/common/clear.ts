@@ -21,3 +21,14 @@ export function GetNestedValue(obj: any, param: string): string | undefined {
     return undefined;
   }, obj);
 }
+
+export function ClearPromptSystem(str: string) {
+  const s = str;
+
+  // s.replace(/"/g, "\'");
+  // s = s.replace(/'/g, "\'");
+  // s = s.replace(/{/g, '<');
+  // s = s.replace(/}/g, '>');
+
+  return s;
+}

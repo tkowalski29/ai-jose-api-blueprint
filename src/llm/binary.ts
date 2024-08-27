@@ -15,10 +15,10 @@ export const LLM_BINARY = "binary";
 export class BinaryLLM implements InterfaceLlm {
   async chat(chatData: ITalk): Promise<{ stream: boolean; data: ITalkDataResult }> {
     // const dir = "/tmp"
-    const dir = __dirname
-    let filePath = path.join(dir, chatData.llm.object.fileDownloadName ?? "");
-    
-    chatData.conversation.question.files = await base64Prepare(chatData.conversation.question.files)
+    const dir = __dirname;
+    const filePath = path.join(dir, chatData.llm.object.fileDownloadName ?? "");
+
+    chatData.conversation.question.files = await base64Prepare(chatData.conversation.question.files);
 
     try {
       if (!fs.existsSync(filePath)) {
@@ -30,6 +30,12 @@ export class BinaryLLM implements InterfaceLlm {
       const res = await this.#executeFile(filePath, b64);
 
       const output: ITalk = JSON.parse(res);
+      if (output.result === undefined) {
+        return {
+          stream: chatData.llm.stream,
+          data: newTalkDataResult(),
+        };
+      }
       const out: ITalkDataResult = output.result;
 
       // this.#removeLocalFile(filePath);
@@ -75,8 +81,11 @@ export class BinaryLLM implements InterfaceLlm {
   }
 
   #prepareMessage(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     systemMessage: string | undefined,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     msgs: IMessage[],
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     lastMessage: ITalkQuestion | undefined
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): any[] {
@@ -113,13 +122,16 @@ export class BinaryLLM implements InterfaceLlm {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async #executeFile(filePath: string, b64: string): Promise<any> {
     return new Promise((resolve, reject) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       exec(`chmod +x ${filePath}`, (chmodError: any) => {
         if (chmodError) {
           reject(`Error setting file as executable: ${chmodError}`);
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         execFile(filePath, [b64], (error: any, stdout: any, stderr: any) => {
           if (error) {
             reject(`Error executing file: ${error}`);

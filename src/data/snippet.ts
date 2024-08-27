@@ -13,6 +13,12 @@ export interface ISnippet {
   webhookUrl: string | undefined;
   isLocal: boolean;
   tag: [] | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   schema: any | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   postSchema: any | undefined;
+}
+
+export function NewSnippet(): undefined {
+  return undefined;
 }

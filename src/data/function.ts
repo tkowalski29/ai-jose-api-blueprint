@@ -1,5 +1,6 @@
 export interface IFunction {
-	name: string;
-	description: string;
-	parameters: any | undefined;
+  name: string;
+  description: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  parameters: any | undefined;
 }

@@ -1,15 +1,16 @@
+import { v4 as uuidv4 } from "uuid";
 import { ReplacePlaceholders } from "../common/clear";
-import { AssistantDefaultTemperature, IAssistant } from "./assistant"
-import { ConversationSelectedTypeSnippet } from "./conversation"
+import { AssistantDefaultTemperature, IAssistant } from "./assistant";
+import { ConversationSelectedTypeAssistant, ConversationSelectedTypeSnippet, IConversation } from "./conversation";
 import { ILlm } from "./llm";
 import { IMessage } from "./message";
-import { ISnippet, SnippetDefaultTemperature } from "./snippet"
+import { ISnippet, SnippetDefaultTemperature } from "./snippet";
 
 export interface ITalk {
   id: string;
   llm: {
-    key: string,
-    object: ILlm,
+    key: string;
+    object: ILlm;
     temperature: string | undefined;
     stream: boolean;
     outputFormat: string;
@@ -26,6 +27,7 @@ export interface ITalk {
     id: string;
     type: string;
     system: string | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     schema: any | undefined;
     question: ITalkQuestion;
     history: IMessage[];
@@ -40,6 +42,7 @@ export interface ITalk {
   };
   createdAt: string;
   result: ITalkDataResult | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   context: any | undefined;
 }
 
@@ -74,6 +77,7 @@ export interface ITalkDataResult {
       }
     | undefined;
   funcCall: ITalkDataFunctionCall | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   funcCallArguments: any | undefined;
 }
 
@@ -106,3 +110,56 @@ export const newTalkDataResult = (): ITalkDataResult => {
     funcCallArguments: undefined,
   };
 };
+
+export function NewTalk(
+  question: ITalkQuestion,
+  conversation: IConversation,
+  llm: ILlm,
+  assistant: IAssistant,
+  snippet: ISnippet | undefined,
+  userName: string,
+  device: string
+): ITalk {
+  const history: IMessage[] = [];
+  for (const c of conversation.messages) {
+    history.push(...c.conversation.history);
+  }
+
+  return {
+    id: uuidv4(),
+    llm: {
+      key: llm.key,
+      object: llm,
+      temperature: undefined,
+      stream: false,
+      outputFormat: "stream",
+    },
+    user: {
+      id: userName,
+      name: device,
+      email: undefined,
+    },
+    device: {
+      name: device,
+    },
+    conversation: {
+      id: conversation.conversationId,
+      type: ConversationSelectedTypeAssistant,
+      system: undefined,
+      schema: undefined,
+      question: question,
+      history: history,
+    },
+    assistant: {
+      id: assistant.assistantId,
+      object: assistant,
+    },
+    snippet: {
+      id: snippet?.snippetId || undefined,
+      object: snippet,
+    },
+    createdAt: new Date().toISOString(),
+    result: undefined,
+    context: undefined,
+  };
+}
